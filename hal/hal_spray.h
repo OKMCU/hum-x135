@@ -28,15 +28,13 @@
 #ifndef __HAL_SPRAY_H__
 #define __HAL_SPRAY_H__
 
-#include "..\bsp\stdint.h"
-#include "..\bsp\typedef.h"
-#include "firmware_conf.h"
+#include "stdint.h"
+#include "hal_config.h"
 
 #if HAL_SPRAY_EN > 0
-
-extern void halSprayInit(void);
-extern void halSprayOn(void);
-extern void halSprayOff(void);
+extern void hal_spray_init(void);
+extern void hal_spray_on(void);
+extern void hal_spray_off(void);
 #endif /* HAL_SPRAY_EN > 0 */
 
 #endif /* __HAL_SPRAY_H__ */

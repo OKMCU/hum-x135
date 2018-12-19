@@ -25,23 +25,25 @@
   ******************************************************************************
   */ 
 
-#include "..\hal\hal_spray.h"
-#include "..\bsp\N76E003.h"
-#include "..\bsp\SFR_Macro.h"
-#include "..\bsp\Function_define.h"
-#include "..\bsp\stdint.h"
-#include "..\bsp\common.h"
+#include "osal.h"
+#include "spl.h"
+
+#include "hal_config.h"
+#include "hal_assert.h"
+#include "hal_spray.h"
+
+#include "main.h"
 
 #if HAL_SPRAY_EN > 0
 
-#define IO_SPRAY          P10
+//#define IO_SPRAY          P10
 
-extern void halSprayInit(void)
+extern void hal_spray_init(void)
 {
     bool BIT_TMP;
     
-    IO_SPRAY = 0;
-    P10_PushPull_Mode;
+    spl_gpio_write_pin( SPL_GPIO_PIN_P10, 0 );
+    SPL_GPIO_SET_MODE_P10_OUTPUT();
     set_P1SR_0;
     //PWM2_P10_OUTPUT_ENABLE;
     PWM_IMDEPENDENT_MODE;
@@ -56,7 +58,7 @@ extern void halSprayInit(void)
     //PWM_CLOCK_DIV_1;
     //PWM_CLOCK_DIV_1;
     PWMPH = 0x00;
-    PWMPL = 0x05;
+    PWMPL = 0x06;
     
     //  PWM duty = 50%
     PWM2H = 0x00;						
@@ -66,11 +68,11 @@ extern void halSprayInit(void)
 }
 
 
-extern void halSprayOn(void)
+extern void hal_spray_on(void)
 {
     PWM2_P10_OUTPUT_ENABLE;
 }
-extern void halSprayOff(void)
+extern void hal_spray_off(void)
 {
     PWM2_P10_OUTPUT_DISABLE;
 }
