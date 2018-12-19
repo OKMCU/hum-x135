@@ -51,6 +51,10 @@ extern void hal_driver_init( void )
 #if (HAL_CLI_EN > 0)
     hal_cli_init();
 #endif
+
+#if (HAL_SPRAY_EN > 0)
+    hal_spray_init();
+#endif
 }
 
 /**************************************************************************************************

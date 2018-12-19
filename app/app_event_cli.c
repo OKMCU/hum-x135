@@ -49,6 +49,13 @@ static void app_cli_cmd_sysclk_inc   ( char *p_arg );
 #if APP_CLI_CMD_SYSCLK_DEC_EN > 0
 static void app_cli_cmd_sysclk_dec   ( char *p_arg );
 #endif
+#if APP_CLI_CMD_ON_EN > 0
+static void app_cli_cmd_on           ( char *p_arg );
+#endif
+#if APP_CLI_CMD_OFF_EN > 0
+static void app_cli_cmd_off          ( char *p_arg );
+#endif
+
 /**************************************************************************************************
  * CONSTANTS
  **************************************************************************************************/
@@ -65,6 +72,12 @@ static FLASH CLI_CMD_LIST_t cmdList[] = {
 #endif
 #if APP_CLI_CMD_SYSCLK_DEC_EN > 0
     { "-",    app_cli_cmd_sysclk_dec },
+#endif
+#if APP_CLI_CMD_ON_EN > 0
+    { "on",   app_cli_cmd_on },
+#endif
+#if APP_CLI_CMD_OFF_EN > 0
+    { "off",  app_cli_cmd_off },
 #endif
 };
 
@@ -136,6 +149,25 @@ static void app_cli_cmd_sysclk_dec( char *p_arg )
     hal_cli_print_str( ".\r\n" );
 }
 #endif
+
+#if APP_CLI_CMD_ON_EN > 0
+static void app_cli_cmd_on           ( char *p_arg )
+{
+    p_arg = p_arg;
+    hal_spray_on();
+    hal_cli_print_str( "Spray ON.\r\n\r\n" );
+}
+#endif
+
+#if APP_CLI_CMD_OFF_EN > 0
+static void app_cli_cmd_off          ( char *p_arg )
+{
+    p_arg = p_arg;
+    hal_spray_off();
+    hal_cli_print_str( "Spray OFF.\r\n\r\n" );
+}
+#endif
+
 #endif //APP_CLI_EN > 0
 /**************************************************************************************************
 **************************************************************************************************/

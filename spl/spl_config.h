@@ -21,8 +21,8 @@
 #include "stdint.h"
 
 #define SPL_MCU_XTAL_EN                     0
-#define SPL_UART_EN                         1
-#define SPL_UART0_EN                        1
+#define SPL_UART_EN                         0
+#define SPL_UART0_EN                        0
 #define SPL_UART1_EN                        0
 #define SPL_GPIO_EN                         1
 #define SPL_I2C_EN                          0

@@ -40,7 +40,7 @@
 
 extern void hal_spray_init(void)
 {
-    bool BIT_TMP;
+    bit BIT_TMP;
     
     spl_gpio_write_pin( SPL_GPIO_PIN_P10, 0 );
     SPL_GPIO_SET_MODE_P10_OUTPUT();
@@ -58,11 +58,11 @@ extern void hal_spray_init(void)
     //PWM_CLOCK_DIV_1;
     //PWM_CLOCK_DIV_1;
     PWMPH = 0x00;
-    PWMPL = 0x06;
+    PWMPL = 0x05;
     
     //  PWM duty = 50%
     PWM2H = 0x00;						
-    PWM2L = 0x04;
+    PWM2L = 0x03;
 
     set_PWMRUN;
 }

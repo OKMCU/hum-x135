@@ -435,6 +435,11 @@
               <FileType>1</FileType>
               <FilePath>..\hal\hal_mcu.c</FilePath>
             </File>
+            <File>
+              <FileName>hal_spray.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\hal\hal_spray.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
