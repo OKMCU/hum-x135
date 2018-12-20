@@ -41,13 +41,6 @@
 #define KEY_THRESHOLD_VLP       4000
 #define KEY_MULTI_MAX           sizeof(multiKeyValue)
 
-#define KEY_EVENT_ENTER         1
-#define KEY_EVENT_SHORT         2
-#define KEY_EVENT_LONG          3
-#define KEY_EVENT_VLONG         4
-#define KEY_EVENT_LEAVE         0
-
-
 #define TASK_KEY_EVENT_KEY0_LP                       1
 #define TASK_KEY_EVENT_KEY0_VLP                      2
 #define TASK_KEY_EVENT_KEY1_LP                       3
@@ -82,7 +75,7 @@ static FLASH uint8_t multiKeyEventVLP[] = {
     TASK_KEY_EVENT_KEY01_VLP,
 };
 
-static const uint8_t eventId_to_keyEvent[][2] = {
+static FLASH uint8_t eventId_to_keyEvent[][2] = {
     { 0                                , 0               },                   //NULL
     { BV( HAL_KEY_0 )                  , KEY_EVENT_LONG  },                   //TASK_KEY_EVENT_KEY0_LP
     { BV( HAL_KEY_0 )                  , KEY_EVENT_VLONG },                   //TASK_KEY_EVENT_KEY0_VLP
