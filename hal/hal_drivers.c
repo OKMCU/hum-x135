@@ -52,12 +52,17 @@ extern void hal_driver_init( void )
     hal_cli_init();
 #endif
 
-#if (HAL_SPRAY_EN > 0)
-    hal_spray_init();
+#if (HAL_MIST_EN > 0)
+    hal_mist_init();
 #endif
 
 #if (HAL_KEY_EN > 0)
     hal_key_init();
+#endif
+
+#if (HAL_LED_EN > 0)
+    hal_led_init();
+    hal_led_set( HAL_LED_ALL, HAL_LED_MODE_OFF );
 #endif
 
 }

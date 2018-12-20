@@ -154,7 +154,7 @@ static void app_cli_cmd_sysclk_dec( char *p_arg )
 static void app_cli_cmd_on           ( char *p_arg )
 {
     p_arg = p_arg;
-    hal_spray_on();
+    hal_mist_on();
     hal_cli_print_str( "Spray ON.\r\n\r\n" );
 }
 #endif
@@ -163,7 +163,7 @@ static void app_cli_cmd_on           ( char *p_arg )
 static void app_cli_cmd_off          ( char *p_arg )
 {
     p_arg = p_arg;
-    hal_spray_off();
+    hal_mist_off();
     hal_cli_print_str( "Spray OFF.\r\n\r\n" );
 }
 #endif

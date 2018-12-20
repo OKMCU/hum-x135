@@ -85,7 +85,8 @@ static void app_cli_print_key( uint8_t keyValue, uint8_t keyEvent )
 extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
 {
     uint16_t keyMerge;
-
+    int8_t s8_tmp;
+    
 #if (APP_CLI_EN > 0)
     app_cli_print_key( keyValue, keyEvent );
 #endif
@@ -96,19 +97,34 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
     {
         case BUILD_UINT16( HAL_KEY_MIST, KEY_EVENT_ENTER ):
         {
-            keyMerge = 0;
+            hal_led_set( HAL_LED_ALL, HAL_LED_MODE_ON );
+            if( app_info.mist_state == MIST_STATE_OFF )
+            {
+                app_info.mist_state = MIST_STATE_ON;
+                hal_mist_on();
+            }
+            else
+            {
+                s8_tmp = hal_mcu_hsi_trim_get();
+                s8_tmp++;
+                hal_mcu_hsi_trim_set( s8_tmp );
+            }
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_MIST, KEY_EVENT_SHORT ):
         {
-            keyMerge = 1;
+            hal_led_set( HAL_LED_ALL, HAL_LED_MODE_OFF );
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_MIST, KEY_EVENT_LONG ):
         {
-            keyMerge = 2;
+            if( app_info.mist_state == MIST_STATE_ON )
+            {
+                app_info.mist_state = MIST_STATE_OFF;
+                hal_mist_off();
+            }
         }
         break;
         
@@ -118,27 +134,50 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
         }
         break;
 
+        case BUILD_UINT16( HAL_KEY_MIST, KEY_EVENT_LEAVE ):
+        {
+            hal_led_set( HAL_LED_ALL, HAL_LED_MODE_OFF );
+        }
+        break;
+
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_ENTER ):
         {
-            keyMerge = 4;
+            hal_led_set( HAL_LED_ALL, HAL_LED_MODE_ON );
+            if( app_info.mist_state == MIST_STATE_OFF )
+            {
+                app_info.mist_state = MIST_STATE_ON;
+                hal_mist_on();
+            }
+            else
+            {
+                s8_tmp = hal_mcu_hsi_trim_get();
+                s8_tmp--;
+                hal_mcu_hsi_trim_set( s8_tmp );
+            }
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_SHORT ):
         {
-            keyMerge = 5;
+            hal_led_set( HAL_LED_ALL, HAL_LED_MODE_OFF );
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_LONG ):
         {
-            keyMerge = 6;
+            hal_mcu_hsi_trim_set( 0 );
         }
         break;
         
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_VLONG ):
         {
             keyMerge = 7;
+        }
+        break;
+
+        case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_LEAVE ):
+        {
+            hal_led_set( HAL_LED_ALL, HAL_LED_MODE_OFF );
         }
         break;
 

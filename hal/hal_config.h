@@ -29,8 +29,9 @@
 #define HAL_CLI_RX_BUF_SIZE              8      //size should be < 255
 #define HAL_CLI_TX_BUF_SIZE              0      //size should be < 255
 
-#define HAL_SPRAY_EN                     1
+#define HAL_MIST_EN                      1
 #define HAL_KEY_EN                       1
+#define HAL_LED_EN                       1
 
 
 /**************************************************************************************************

@@ -60,6 +60,7 @@ extern void app_event_main_por( void )
 #if APP_KEY_EN > 0
     app_info.key_state = 0x00;
 #endif
+    app_info.mist_state = MIST_STATE_OFF;
 
     osal_event_set( TASK_ID_APP_MAIN, TASK_EVT_APP_MAIN_IDLE );
 }

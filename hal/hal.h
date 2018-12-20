@@ -30,12 +30,16 @@
 #include "hal_cli.h"
 #endif
 
-#if HAL_SPRAY_EN > 0
-#include "hal_spray.h"
+#if HAL_MIST_EN > 0
+#include "hal_mist.h"
 #endif
 
 #if HAL_KEY_EN > 0
 #include "hal_key.h"
+#endif
+
+#if HAL_LED_EN > 0
+#include "hal_led.h"
 #endif
 
 /* ------------------------------------------------------------------------------------------------
