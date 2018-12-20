@@ -44,11 +44,6 @@ static OSAL_TIMER_t *p_timers_head;
 static OSAL_TIMER_t *p_timers_tail;
 #else
 static OSAL_TIMER_t osal_timer_list[OSAL_TIMER_MAX];
-#if (OSAL_TIMER_MAX >= UINT8_MAX)
-static uint16_t osal_timer_cnt;
-#else
-static uint8_t osal_timer_cnt;
-#endif //OSAL_TIMER_MAX >= UINT8_MAX
 #endif //(OSAL_TIMER_STATIC_EN == 0)
 
 static uint32_t time_sec;
@@ -224,10 +219,13 @@ osal_timer_event_find( uint8_t task_id, uint8_t event_id )
 #endif //(OSAL_TIMER_MAX >= UINT8_MAX)
     for( timer_id = 0; timer_id < OSAL_TIMER_MAX; timer_id++ )
     {
-        if( osal_timer_list[timer_id].task_id  == task_id &&
-            osal_timer_list[timer_id].event_id == event_id )
+        if( osal_timer_list[timer_id].timeout > 0 )
         {
-            break;
+            if( osal_timer_list[timer_id].task_id  == task_id &&
+                osal_timer_list[timer_id].event_id == event_id )
+            {
+                break;
+            }
         }
     }
     
@@ -242,7 +240,6 @@ extern void     osal_timer_init         ( void )
     p_timers_tail = NULL;
 #else
     mem_set( osal_timer_list, 0, sizeof(osal_timer_list) );
-    osal_timer_cnt = 0;
 #endif
     time_sec = 0;
     time_ms = 0;
@@ -312,17 +309,14 @@ extern void     osal_timer_update       ( void )
             }
         }
 #else
-        if( osal_timer_cnt )
+        for( timer_id = 0; timer_id < OSAL_TIMER_MAX; timer_id++ )
         {
-            for( timer_id = 0; timer_id < OSAL_TIMER_MAX; timer_id++ )
+            if( osal_timer_list[timer_id].timeout )
             {
-                if( osal_timer_list[timer_id].timeout )
+                osal_timer_list[timer_id].timeout = ( osal_timer_list[timer_id].timeout >= delta_systick ) ? (osal_timer_list[timer_id].timeout - delta_systick) : 0;
+                if( osal_timer_list[timer_id].timeout == 0 )
                 {
-                    osal_timer_list[timer_id].timeout = ( osal_timer_list[timer_id].timeout >= delta_systick ) ? (osal_timer_list[timer_id].timeout - delta_systick) : 0;
-                    if( osal_timer_list[timer_id].timeout == 0 )
-                    {
-                        osal_event_set( osal_timer_list[timer_id].task_id, osal_timer_list[timer_id].event_id );
-                    }
+                    osal_event_set( osal_timer_list[timer_id].task_id, osal_timer_list[timer_id].event_id );
                 }
             }
         }
@@ -388,6 +382,8 @@ extern void osal_timer_event_create ( uint8_t task_id, uint8_t event_id, uint32_
             if( osal_timer_list[timer_id].timeout == 0 )
             {
                 osal_timer_list[timer_id].timeout = timeout_ms;
+                osal_timer_list[timer_id].task_id = task_id;
+                osal_timer_list[timer_id].event_id = event_id;
                 break;
             }
         }
