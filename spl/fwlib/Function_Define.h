@@ -29,7 +29,7 @@
 
 #include "spl_config.h"
 #include <intrins.h>
-#define nop _nop_();
+#define nop() _nop_()
 
 
 //16 --> 8 x 2
