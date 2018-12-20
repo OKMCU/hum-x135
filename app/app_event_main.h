@@ -46,6 +46,7 @@ extern void app_event_main_init( void );
 extern void app_event_main_app_exception( void );
 extern void app_event_main_hal_exception( void );
 extern void app_event_main_osal_exception( void );
+extern void app_event_main_idle( void );
 
 #ifdef __cplusplus
 }

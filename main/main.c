@@ -30,6 +30,12 @@ FLASH OSAL_TASK_t osal_task_list[OSAL_TASK_MAX] = {
 #else
     NULL,
 #endif
+
+#if APP_KEY_EN > 0
+    app_task_key,
+#else
+    NULL,
+#endif
     app_task_main,
 };
 
@@ -52,6 +58,11 @@ int main( void )
 #if APP_CLI_EN > 0
     app_task_cli_init();
 #endif
+
+#if APP_KEY_EN > 0
+    app_task_key_init();
+#endif
+
     //osal_task_create( app_task_main, TASK_ID_APP_MAIN );
     app_task_main_init();
 

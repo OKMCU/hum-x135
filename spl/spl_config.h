@@ -44,7 +44,7 @@
 #define SPL_SYSCLK_EN                       1
 #define SPL_SYSCLK_TRIM_EN                  1
 #define SPL_SYSCLK_CLKO_EN                  0
-
+#define SPL_TIMER_EN                        1
 
 #if (SPL_UART_EN > 0)
 #if (SPL_UART0_EN > 0)
@@ -94,6 +94,10 @@
 #else  //(SPL_SYSCLK_EN > 0)
 #define SPL_SYSCLK                          16000000L
 #endif //(SPL_SYSCLK_EN > 0)
+
+#if (SPL_TIMER_EN > 0)
+#define SPL_TIMER_SYSTICK_FREQ              1000
+#endif //(SPL_TIMER_EN > 0)
 
 /**************************************************************************************************
  *                                        FUNCTIONS - API

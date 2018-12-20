@@ -1,6 +1,6 @@
 /******************************************************************************
 
- @file  app_task_main.c
+ @file  app_event_key.c
 
  @brief 
 
@@ -23,65 +23,110 @@
 #include "app.h"
 
 #include "main.h"
+
+#include "stdstr.h"
+#include "stringx.h"
 /**************************************************************************************************
- * TYPES
+ * TYPE DEFINES
+ **************************************************************************************************/
+
+ /**************************************************************************************************
+ * LOCAL API DECLARATION
  **************************************************************************************************/
 
 /**************************************************************************************************
  * CONSTANTS
  **************************************************************************************************/
 
-
 /**************************************************************************************************
  * GLOBAL VARIABLES
  **************************************************************************************************/
-extern void app_task_main_init( void )
+#if (APP_CLI_EN > 0)
+static void app_cli_print_key( uint8_t keyValue, uint8_t keyEvent )
 {
-    osal_event_set( TASK_ID_APP_MAIN, TASK_EVT_APP_MAIN_POR );
-}
+    uint8_t i;
+    uint8_t cnt;
 
+    FLASH char *pKeyEvent[] = {
+        "LEAVE",
+        "ENTER",
+        "SHORT",
+        "LONG",
+        "VLONG"
+    };
 
-extern void app_task_main ( uint8_t task_id, uint8_t event_id )
-{
-    task_id = task_id;
+    FLASH char *pKeyName[HAL_KEY_MAX] = {
+        "LIGHT",
+        "MIST"
+    };
     
-    switch (event_id)
+    hal_cli_print_str( "KEY=" );
+    for( i = 0, cnt = 0; i < HAL_KEY_MAX; i++ )
     {
-        case TASK_EVT_APP_MAIN_POR:
+        if( keyValue & BV(i) )
         {
-            app_event_main_por();
+            if( cnt != 0 )
+            {
+                putchar( '+' );
+            }
+            hal_cli_print_str( pKeyName[i] );
+            cnt++;
+        }
+    }
+    putchar( ' ' );
+    hal_cli_print_str( pKeyEvent[keyEvent] );
+    hal_cli_print_str( "\r\n" );
+}
+#endif //(APP_CLI_EN > 0)
+
+
+extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
+{
+    uint16_t keyMerge;
+
+#if (APP_CLI_EN > 0)
+    app_cli_print_key( keyValue, keyEvent );
+#endif
+
+    keyMerge = BUILD_UINT16( keyValue, keyEvent );
+
+    switch( keyMerge )
+    {
+        case BUILD_UINT16( HAL_KEY_MIST, APP_EVENT_KEY_ENTER ):
+        {
+ 
         }
         break;
 
-
-        case TASK_EVT_APP_MAIN_OSAL_EXCEPTION:
+        case BUILD_UINT16( HAL_KEY_MIST, APP_EVENT_KEY_LONG ):
         {
-            app_event_main_osal_exception();
+
         }
         break;
 
-        case TASK_EVT_APP_MAIN_HAL_EXCEPTION:
+        case BUILD_UINT16( HAL_KEY_LIGHT, APP_EVENT_KEY_ENTER ):
         {
-            app_event_main_hal_exception();
+
         }
         break;
 
-        case TASK_EVT_APP_MAIN_APP_EXCEPTION:
+        case BUILD_UINT16( HAL_KEY_LIGHT, APP_EVENT_KEY_LONG ):
         {
-            app_event_main_app_exception();
+ 
         }
         break;
-        
-        case TASK_EVT_APP_MAIN_IDLE:
+
+        case BUILD_UINT16( HAL_KEY_LIGHT + HAL_KEY_MIST, APP_EVENT_KEY_LONG ):
         {
-            app_event_main_idle();
+
         }
-        
+        break;
+
         default:
-            APP_ASSERT_FORCED();
         break;
     }
 }
+
 
 
 

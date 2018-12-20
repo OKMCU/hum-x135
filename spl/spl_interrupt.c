@@ -45,6 +45,7 @@ void EINT1_IRQHandler(void)         {spl_extint_int1_isr();}
 
 #if (OSAL_TIMER_EN > 0)
 extern uint8_t osal_systick;
+void Timer2_ISR (void) interrupt 5  {clr_TF2; osal_systick++;}
 #endif
 
 

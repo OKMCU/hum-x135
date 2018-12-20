@@ -36,6 +36,13 @@ extern void hal_mcu_init( void )
 {
     spl_mcu_init();
 
+#if (SPL_SYSCLK_EN > 0)
+    spl_sysclk_init();
+#if (SPL_SYSCLK_CLKO_EN > 0)
+    spl_sysclk_output_enable();
+#endif
+#endif
+
 #if (SPL_UART0_EN > 0)
     spl_uart_init( SPL_UART_PORT_0 );
     spl_uart_open( SPL_UART_PORT_0 );
@@ -55,11 +62,8 @@ extern void hal_mcu_init( void )
     spl_extint_init();
 #endif
 
-#if (SPL_SYSCLK_EN > 0)
-    spl_sysclk_init();
-#if (SPL_SYSCLK_CLKO_EN > 0)
-    spl_sysclk_output_enable();
-#endif
+#if (SPL_TIMER_EN > 0)
+    spl_timer_init();
 #endif
 }
 
@@ -96,6 +100,10 @@ extern int8_t hal_mcu_hsi_trim_set( int8_t trim )
     spl_uart_deinit( SPL_UART_PORT_1 );    
 #endif
 
+#if (SPL_TIMER_EN > 0)
+    spl_timer_deinit();
+#endif
+
     spl_sysclk_set_hirc( trim );
 
 #if (SPL_UART0_EN > 0)
@@ -106,6 +114,10 @@ extern int8_t hal_mcu_hsi_trim_set( int8_t trim )
 #if (SPL_UART1_EN > 0)
     spl_uart_init( SPL_UART_PORT_1 );
     spl_uart_open( SPL_UART_PORT_1 );
+#endif
+
+#if (SPL_TIMER_EN > 0)
+    spl_timer_init();
 #endif
 
     return trim;

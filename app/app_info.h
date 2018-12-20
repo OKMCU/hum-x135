@@ -22,7 +22,9 @@
 
 
 typedef struct app_info_t {
-    uint8_t tmp;
+#if APP_KEY_EN > 0
+    uint8_t key_state;
+#endif
 } APP_INFO_t;
 /* ------------------------------------------------------------------------------------------------
  *                                           CONSTANTS

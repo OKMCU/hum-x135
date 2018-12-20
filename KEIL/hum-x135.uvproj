@@ -410,6 +410,11 @@
               <FileType>1</FileType>
               <FilePath>..\spl\spl_sysclk.c</FilePath>
             </File>
+            <File>
+              <FileName>spl_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\spl\spl_timer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -439,6 +444,11 @@
               <FileName>hal_spray.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\hal\hal_spray.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal_key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\hal\hal_key.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -517,6 +527,16 @@
               <FileName>app_event_cli.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\app\app_event_cli.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_task_key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\app\app_task_key.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_event_key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\app\app_event_key.c</FilePath>
             </File>
           </Files>
         </Group>

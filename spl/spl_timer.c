@@ -1,8 +1,8 @@
 /******************************************************************************
 
- @file  app_task_main.c
+ @file  spl_mcu.c
 
- @brief 
+ @brief This file contains the interface to the Drivers Service.
 
  Group: 
  Target Device: 
@@ -12,79 +12,63 @@
 
  ******************************************************************************
  Release Name: 
- Release Date: 2016-06-09 06:57:09
+ Release Date: 
  *****************************************************************************/
 
 /**************************************************************************************************
- * INCLUDES
+ *                                            INCLUDES
  **************************************************************************************************/
-#include "osal.h"
-#include "hal.h"
-#include "app.h"
+#include "Common.h"
+#include "Function_Define.h"
+#include "N76E003.h"
+#include "SFR_Macro.h"
+#include "spl_config.h"
+#include "spl_timer.h"
+#include "spl_sysclk.h"
 
-#include "main.h"
+#if SPL_TIMER_EN > 0
 /**************************************************************************************************
- * TYPES
+ *                                         CONSTANTS
  **************************************************************************************************/
 
 /**************************************************************************************************
- * CONSTANTS
+ *                                      GLOBAL VARIABLES
  **************************************************************************************************/
-
 
 /**************************************************************************************************
- * GLOBAL VARIABLES
+ *                                      FUNCTIONS
  **************************************************************************************************/
-extern void app_task_main_init( void )
+extern void spl_timer_init( void )
 {
-    osal_event_set( TASK_ID_APP_MAIN, TASK_EVT_APP_MAIN_POR );
-}
-
-
-extern void app_task_main ( uint8_t task_id, uint8_t event_id )
-{
-    task_id = task_id;
+    uint16_t reload;
     
-    switch (event_id)
-    {
-        case TASK_EVT_APP_MAIN_POR:
-        {
-            app_event_main_por();
-        }
-        break;
+#if SPL_SYSCLK_TRIM_EN > 0
+    int32_t s32tmp;
+    s32tmp = (int32_t)SPL_SYSCLK + (int32_t)spl_sysclk_get_hirc()*40000;    //calculate accurate SYS_CLOCK
+    reload = UINT16_MAX - (s32tmp/SPL_TIMER_SYSTICK_FREQ) + 1;
+#else
+    reload = UINT16_MAX - (SPL_SYSCLK/SPL_TIMER_SYSTICK_FREQ) + 1;
+#endif
+    
+    TIMER2_DIV_1;
+    TIMER2_Auto_Reload_Delay_Mode;
 
+    RCMP2L = (uint8_t)(reload & 0xFF);
+    RCMP2H = (uint8_t)(reload >> 8);
+    TL2 = 0;
+    TH2 = 0;
 
-        case TASK_EVT_APP_MAIN_OSAL_EXCEPTION:
-        {
-            app_event_main_osal_exception();
-        }
-        break;
-
-        case TASK_EVT_APP_MAIN_HAL_EXCEPTION:
-        {
-            app_event_main_hal_exception();
-        }
-        break;
-
-        case TASK_EVT_APP_MAIN_APP_EXCEPTION:
-        {
-            app_event_main_app_exception();
-        }
-        break;
-        
-        case TASK_EVT_APP_MAIN_IDLE:
-        {
-            app_event_main_idle();
-        }
-        
-        default:
-            APP_ASSERT_FORCED();
-        break;
-    }
+    set_ET2;                                    // Enable Timer2 interrupt
+    set_TR2;                                    // Timer2 run
 }
 
+extern void spl_timer_deinit( void )
+{
+    clr_TR2;
+    clr_ET2;
+}
 
-
+#endif //SPL_TIMER_EN > 0
 /**************************************************************************************************
 **************************************************************************************************/
 

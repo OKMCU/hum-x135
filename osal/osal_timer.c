@@ -44,7 +44,11 @@ static OSAL_TIMER_t *p_timers_head;
 static OSAL_TIMER_t *p_timers_tail;
 #else
 static OSAL_TIMER_t osal_timer_list[OSAL_TIMER_MAX];
+#if (OSAL_TIMER_MAX >= UINT8_MAX)
 static uint16_t osal_timer_cnt;
+#else
+static uint8_t osal_timer_cnt;
+#endif //OSAL_TIMER_MAX >= UINT8_MAX
 #endif //(OSAL_TIMER_STATIC_EN == 0)
 
 static uint32_t time_sec;
@@ -205,10 +209,19 @@ static uint32_t osal_timer_cback_query  ( void *timer_id )
     return ( (OSAL_TIMER_t *)timer_id )->timeout;
 }
 #else
-static uint16_t osal_timer_event_find( uint8_t task_id, uint8_t event_id )
+
+#if (OSAL_TIMER_MAX >= UINT8_MAX)
+static uint16_t
+#else
+static uint8_t  
+#endif //(OSAL_TIMER_MAX >= UINT8_MAX)
+osal_timer_event_find( uint8_t task_id, uint8_t event_id )
 {
+#if (OSAL_TIMER_MAX >= UINT8_MAX)
     uint16_t timer_id;
-    
+#else
+    uint8_t  timer_id;
+#endif //(OSAL_TIMER_MAX >= UINT8_MAX)
     for( timer_id = 0; timer_id < OSAL_TIMER_MAX; timer_id++ )
     {
         if( osal_timer_list[timer_id].task_id  == task_id &&
@@ -247,8 +260,12 @@ extern void     osal_timer_update       ( void )
     void (*p_fxn)( void * );
     void *p_arg;
 #else
-    uint16_t timer_id;   
-#endif
+#if (OSAL_TIMER_MAX >= UINT8_MAX)
+    uint16_t timer_id;
+#else
+    uint8_t  timer_id;
+#endif//(OSAL_TIMER_MAX >= UINT8_MAX)
+#endif//(OSAL_TIMER_STATIC_EN == 0)
 
     uint8_t curr_systick;
     uint8_t delta_systick;
@@ -332,7 +349,11 @@ extern void osal_timer_event_create ( uint8_t task_id, uint8_t event_id, uint32_
 #if (OSAL_TIMER_STATIC_EN == 0)
     OSAL_TIMER_t *p_timer_match;
 #else
+#if (OSAL_TIMER_MAX >= UINT8_MAX)
     uint16_t timer_id;
+#else
+    uint8_t  timer_id;
+#endif//(OSAL_TIMER_MAX >= UINT8_MAX)
 #endif
 
     OSAL_ASSERT( task_id < OSAL_TASK_MAX );
@@ -382,7 +403,11 @@ extern void osal_timer_event_update ( uint8_t task_id, uint8_t event_id, uint32_
 #if (OSAL_TIMER_STATIC_EN == 0)
     OSAL_TIMER_t *p_timer_match;
 #else
+#if (OSAL_TIMER_MAX >= UINT8_MAX)
     uint16_t timer_id;
+#else
+    uint8_t  timer_id;
+#endif//(OSAL_TIMER_MAX >= UINT8_MAX)
 #endif
 
     OSAL_ASSERT( task_id < OSAL_TASK_MAX);
@@ -410,7 +435,11 @@ extern void osal_timer_event_delete ( uint8_t task_id, uint8_t event_id )
 #if (OSAL_TIMER_STATIC_EN == 0)
     OSAL_TIMER_t *p_timer_match;
 #else
+#if (OSAL_TIMER_MAX >= UINT8_MAX)
     uint16_t timer_id;
+#else
+    uint8_t  timer_id;
+#endif//(OSAL_TIMER_MAX >= UINT8_MAX)
 #endif
 
     OSAL_ASSERT( task_id < OSAL_TASK_MAX);
@@ -445,7 +474,11 @@ extern uint32_t osal_timer_event_query  ( uint8_t task_id, uint8_t event_id )
 #if (OSAL_TIMER_STATIC_EN == 0)
     OSAL_TIMER_t *p_timer_match;
 #else
+#if (OSAL_TIMER_MAX >= UINT8_MAX)
     uint16_t timer_id;
+#else
+    uint8_t  timer_id;
+#endif//(OSAL_TIMER_MAX >= UINT8_MAX)
 #endif
 
     OSAL_ASSERT( task_id < OSAL_TASK_MAX);
