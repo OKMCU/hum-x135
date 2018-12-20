@@ -40,8 +40,11 @@
  **************************************************************************************************/
 extern void spl_timer_init( void )
 {
+#if SPL_TIMER_SYSTICK_EN > 0
     uint16_t reload;
-    
+#endif
+
+#if SPL_TIMER_SYSTICK_EN > 0
 #if SPL_SYSCLK_TRIM_EN > 0
     int32_t s32tmp;
     s32tmp = (int32_t)SPL_SYSCLK + (int32_t)spl_sysclk_get_hirc()*40000;    //calculate accurate SYS_CLOCK
@@ -60,12 +63,15 @@ extern void spl_timer_init( void )
 
     set_ET2;                                    // Enable Timer2 interrupt
     set_TR2;                                    // Timer2 run
+#endif//SPL_TIMER_SYSTICK_EN > 0
 }
 
 extern void spl_timer_deinit( void )
 {
+#if SPL_TIMER_SYSTICK_EN > 0
     clr_TR2;
     clr_ET2;
+#endif
 }
 
 #endif //SPL_TIMER_EN > 0

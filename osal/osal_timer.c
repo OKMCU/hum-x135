@@ -49,7 +49,7 @@ static OSAL_TIMER_t osal_timer_list[OSAL_TIMER_MAX];
 static uint32_t time_sec;
 static uint16_t time_ms;
 static uint8_t prev_systick;
-uint8_t osal_systick;
+static uint8_t osal_systick;
 
 #if (OSAL_TIMER_STATIC_EN == 0)
 #if (OSAL_ASSERT_EN > 0)
@@ -497,6 +497,10 @@ extern uint32_t osal_timer_event_query  ( uint8_t task_id, uint8_t event_id )
     return 0;
 }
 
+extern void osal_timer_systick_inc( void )
+{
+    osal_systick++;
+}
 
 #endif /* (OSAL_TIMER_EN > 0) */
 
