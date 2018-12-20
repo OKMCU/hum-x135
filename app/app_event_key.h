@@ -32,11 +32,11 @@ extern "C"
 /**************************************************************************************************
  * CONSTANTS
  **************************************************************************************************/
-#define APP_EVENT_KEY_ENTER         1
-#define APP_EVENT_KEY_SHORT         2
-#define APP_EVENT_KEY_LONG          3
-#define APP_EVENT_KEY_VLONG         4
-#define APP_EVENT_KEY_LEAVE         0
+#define KEY_EVENT_ENTER         1
+#define KEY_EVENT_SHORT         2
+#define KEY_EVENT_LONG          3
+#define KEY_EVENT_VLONG         4
+#define KEY_EVENT_LEAVE         0
 
 /**************************************************************************************************
  * GLOBAL VARIABLES

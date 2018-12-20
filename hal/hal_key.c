@@ -81,23 +81,7 @@ extern uint8_t  hal_key_read ( void )
 #endif
 
     return key;
-    
 }
-
-#if (HAL_KEY_SCAN_EN > 0)
-extern void     hal_key_scan( void )
-{
-    static uint8_t key_prev = 0x00;
-    uint8_t key;
-
-    key = hal_key_read();
-    if( key != key_prev )
-    {
-        osal_timer_event_create( TASK_ID_APP_KEY, TASK_EVT_APP_KEY_UPDATE, HAL_KEY_DEBOUNCE_TIME );
-        key_prev = key;
-    }
-}
-#endif /* (HAL_KEY_SCAN_EN > 0) */
 
 #endif /* (HAL_KEY_EN > 0) */
 

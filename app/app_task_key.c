@@ -96,11 +96,11 @@ static const uint8_t eventId_to_keyEvent[][2] = {
 static void key_event( uint8_t keyValue, uint8_t keyEvent )
 {
     FLASH uint8_t lutKeyEvent[] = {
-        APP_EVENT_KEY_LEAVE,
-        APP_EVENT_KEY_ENTER,
-        APP_EVENT_KEY_SHORT,
-        APP_EVENT_KEY_LONG,
-        APP_EVENT_KEY_VLONG
+        KEY_EVENT_LEAVE,
+        KEY_EVENT_ENTER,
+        KEY_EVENT_SHORT,
+        KEY_EVENT_LONG,
+        KEY_EVENT_VLONG
     };
     app_event_key_update( keyValue, lutKeyEvent[keyEvent] );
 }
