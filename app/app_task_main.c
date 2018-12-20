@@ -76,6 +76,7 @@ extern void app_task_main ( uint8_t task_id, uint8_t event_id )
         {
             app_event_main_idle();
         }
+        break;
         
         default:
             APP_ASSERT_FORCED();

@@ -167,7 +167,7 @@ static void key_processor( uint8_t newKeyValue )
                 else
                 {
                     //key update, key leave
-                    if( osal_timer_event_query( TASK_ID_APP_KEY, singleKeyEventLP[newKeyId] != 0 ) )
+                    if( osal_timer_event_query( TASK_ID_APP_KEY, singleKeyEventLP[newKeyId] ) != 0 )
                     {
                         //LP event has not happened yet, thus, this is a short press event
                         isShortPress = TRUE;

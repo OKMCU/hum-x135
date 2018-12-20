@@ -94,31 +94,61 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
     {
         case BUILD_UINT16( HAL_KEY_MIST, APP_EVENT_KEY_ENTER ):
         {
- 
+            keyMerge = 0;
+        }
+        break;
+
+        case BUILD_UINT16( HAL_KEY_MIST, APP_EVENT_KEY_SHORT ):
+        {
+            keyMerge = 1;
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_MIST, APP_EVENT_KEY_LONG ):
         {
-
+            keyMerge = 2;
+        }
+        break;
+        
+        case BUILD_UINT16( HAL_KEY_MIST, APP_EVENT_KEY_VLONG ):
+        {
+            keyMerge = 3;
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_LIGHT, APP_EVENT_KEY_ENTER ):
         {
+            keyMerge = 4;
+        }
+        break;
 
+        case BUILD_UINT16( HAL_KEY_LIGHT, APP_EVENT_KEY_SHORT ):
+        {
+            keyMerge = 5;
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_LIGHT, APP_EVENT_KEY_LONG ):
         {
- 
+            keyMerge = 6;
+        }
+        break;
+        
+        case BUILD_UINT16( HAL_KEY_LIGHT, APP_EVENT_KEY_VLONG ):
+        {
+            keyMerge = 7;
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_LIGHT + HAL_KEY_MIST, APP_EVENT_KEY_LONG ):
         {
-
+            keyMerge = 8;
+        }
+        break;
+        
+        case BUILD_UINT16( HAL_KEY_LIGHT + HAL_KEY_MIST, APP_EVENT_KEY_VLONG ):
+        {
+            keyMerge = 9;
         }
         break;
 
