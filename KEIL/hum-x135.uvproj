@@ -450,6 +450,11 @@
               <FileType>1</FileType>
               <FilePath>..\hal\hal_mist.c</FilePath>
             </File>
+            <File>
+              <FileName>hal_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\hal\hal_led.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

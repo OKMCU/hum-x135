@@ -29,11 +29,11 @@ typedef struct osal_timer_t {
     struct osal_timer_t *p_timer_next;
     void ( *p_fxn )( void * );
     void *p_arg;
-    uint32_t timeout;
+    osal_timer_timeout_t timeout;
 } OSAL_TIMER_t;
 #else
 typedef struct osal_timer_t {
-    uint32_t timeout;
+    osal_timer_timeout_t timeout;
     uint8_t task_id;
     uint8_t event_id;
 } OSAL_TIMER_t;
@@ -159,7 +159,7 @@ static OSAL_TIMER_t *osal_timer_event_find( uint8_t task_id, uint8_t event_id )
     return p_timer_match;
 }
 
-static void    *osal_timer_cback_create ( void ( *p_fxn )( void * ), void *p_arg, uint32_t timeout_ms )
+static void    *osal_timer_cback_create ( void ( *p_fxn )( void * ), void *p_arg, osal_timer_timeout_t timeout_ms )
 {
     OSAL_TIMER_t *p_timer_new;
 
@@ -178,7 +178,7 @@ static void    *osal_timer_cback_create ( void ( *p_fxn )( void * ), void *p_arg
     return p_timer_new;
 }
 
-static void osal_timer_cback_update ( void *timer_id, uint32_t timeout_ms )
+static void osal_timer_cback_update ( void *timer_id, osal_timer_timeout_t timeout_ms )
 {
     OSAL_ASSERT( timer_id != NULL );
     OSAL_ASSERT( timeout_ms != 0 );
@@ -338,7 +338,7 @@ extern void     osal_timer_set_time     ( uint32_t sec, uint16_t ms )
     time_ms = ms;
 }
 
-extern void osal_timer_event_create ( uint8_t task_id, uint8_t event_id, uint32_t timeout_ms )
+extern void osal_timer_event_create ( uint8_t task_id, uint8_t event_id, osal_timer_timeout_t timeout_ms )
 {
 #if (OSAL_TIMER_STATIC_EN == 0)
     OSAL_TIMER_t *p_timer_match;
@@ -394,7 +394,7 @@ extern void osal_timer_event_create ( uint8_t task_id, uint8_t event_id, uint32_
 
 }
 
-extern void osal_timer_event_update ( uint8_t task_id, uint8_t event_id, uint32_t timeout_ms )
+extern void osal_timer_event_update ( uint8_t task_id, uint8_t event_id, osal_timer_timeout_t timeout_ms )
 {
 #if (OSAL_TIMER_STATIC_EN == 0)
     OSAL_TIMER_t *p_timer_match;
