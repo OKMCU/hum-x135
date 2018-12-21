@@ -23,6 +23,7 @@
 #include "osal_port.h"
 
 /**************************** CONSTANTs ***************************/
+#define     OSAL_VERSION                    "V1.0.0"
 #if (OSAL_MSG_EN > 0)
 #define     OSAL_TASK_EVENT_MSG             0
 #endif

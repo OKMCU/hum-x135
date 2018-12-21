@@ -48,6 +48,10 @@ extern void app_event_main_por( void )
     hal_cli_print_str( "\r\nThis is OSAL demo project on Nuvoton 8051 series MCU.\r\n" );
     hal_cli_print_str( "Power on reset.\r\n" );
 
+    hal_cli_print_str( "Free-OSAL Version " );
+    hal_cli_print_str( OSAL_VERSION );
+    hal_cli_print_str( "\r\n" );
+    
     hal_cli_print_str( "Firmware Version " );
     hal_cli_print_str( FIRMWARE_VER );
     hal_cli_print_str( "\r\n" );
