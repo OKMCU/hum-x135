@@ -5,7 +5,6 @@
 #include "stdint.h"
 #include "hal_config.h"
 
-#if (HAL_KEY_EN > 0)
 #define     HAL_KEY_DEBOUNCE_TIME   50
 #define     HAL_KEY_MAX             2
 
@@ -40,6 +39,5 @@
 extern void     hal_key_init ( void );
 extern uint8_t  hal_key_read ( void );
 
-#endif /* (HAL_KEY_EN > 0) */
 #endif /* __HAL_KEY_H__ */
 

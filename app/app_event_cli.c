@@ -20,9 +20,7 @@
  **************************************************************************************************/
 #include "osal.h"
 #include "hal.h"
-#include "app_config.h"
-#include "app_assert.h"
-#include "app_event_cli.h"
+#include "app.h"
 
 #include "stdstr.h"
 #include "stringx.h"

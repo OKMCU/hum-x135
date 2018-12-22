@@ -19,12 +19,7 @@
  **************************************************************************************************/
 #include "osal.h"
 #include "hal.h"
-
-#include "app_config.h"
-#include "app_assert.h"
-#include "app_task_key.h"
-#include "app_event_key.h"
-#include "app_info.h"
+#include "app.h"
 
 #include "main.h"
 #include "stdconst.h"

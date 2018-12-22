@@ -44,10 +44,8 @@ extern "C"
  * Process Serial Buffer
  */
 
-#if APP_CLI_EN > 0
 extern void app_task_cli_init ( void );
 extern void app_task_cli ( uint8_t task_id, uint8_t event_id );
-#endif
 
 
 #ifdef __cplusplus

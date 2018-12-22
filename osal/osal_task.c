@@ -17,7 +17,6 @@
 #include "osal_task.h"
 #include "osal_config.h"
 #include "osal_port.h"
-#include "osal_msg.h"
 
 #include "stdstr.h"
 

@@ -22,7 +22,6 @@
 #include "stdint.h"
 #include "hal_config.h"
 
-#if (HAL_CLI_EN > 0)
 extern void hal_cli_init         ( void );
 extern uint8_t hal_cli_rx_len    ( void );
 extern char putchar( char c );
@@ -35,7 +34,6 @@ extern void hal_cli_print_hex8   ( uint8_t num );
 extern void hal_cli_print_hex16  ( uint16_t num );
 extern void hal_cli_print_hex32  ( uint32_t num );
 #endif
-#endif /* (HAL_CLI_EN > 0) */
 
 #endif /* __HAL_CLI_H__ */
 

@@ -18,6 +18,47 @@
 #include "stringx.h"
 #include "stdstr.h"
 
+#ifndef STRINGX_EN_hexstr2uint
+#define STRINGX_EN_hexstr2uint          1
+#endif
+
+#ifndef STRINGX_EN_decstr2uint
+#define STRINGX_EN_decstr2uint          1
+#endif
+
+#ifndef STRINGX_EN_decstr2sint
+#define STRINGX_EN_decstr2sint          1
+#endif
+
+#ifndef STRINGX_EN_tostr_sint
+#define STRINGX_EN_tostr_sint           1
+#endif
+
+#ifndef STRINGX_EN_tostr_uint
+#define STRINGX_EN_tostr_uint           1
+#endif
+
+#ifndef STRINGX_EN_tostr_hex8
+#define STRINGX_EN_tostr_hex8           1
+#endif
+
+#ifndef STRINGX_EN_tostr_hex16
+#define STRINGX_EN_tostr_hex16          1
+#endif
+
+#ifndef STRINGX_EN_tostr_hex32
+#define STRINGX_EN_tostr_hex32          1
+#endif
+
+#ifndef STRINGX_EN_str_starts_with
+#define STRINGX_EN_str_starts_with      1
+#endif
+
+#ifndef STRINGX_EN_str_ends_with
+#define STRINGX_EN_str_ends_with        1
+#endif
+
+
 #define SWAP(a, b)  a ^= b; b ^= a; a ^= b
 
 #if STRINGX_EN_hexstr2uint > 0

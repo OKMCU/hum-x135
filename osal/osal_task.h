@@ -18,7 +18,6 @@
 #define __OSAL_TASK_H__
 
 #include "stdint.h"
-#include "osal_comdef.h"
 
 extern void    osal_task_init       ( void );
 extern void    osal_event_set       ( uint8_t task_id, uint8_t event_id );

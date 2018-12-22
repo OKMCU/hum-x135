@@ -28,7 +28,6 @@ extern "C"
 #include "stdint.h"
 #include "app_config.h"
 
-#if (APP_KEY_EN > 0)
 /**************************************************************************************************
  * CONSTANTS
  **************************************************************************************************/
@@ -45,8 +44,6 @@ extern "C"
 
 extern void app_task_key_init ( void );
 extern void app_task_key ( uint8_t task_id, uint8_t event_id );
-
-#endif //(APP_KEY_EN > 0)
 
 #ifdef __cplusplus
 }

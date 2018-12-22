@@ -11,6 +11,34 @@
 
 #include "stdstr.h"
 
+#ifndef STDSTR_EN_mem_set
+#define STDSTR_EN_mem_set       1
+#endif
+
+#ifndef STDSTR_EN_str_cmp
+#define STDSTR_EN_str_cmp       1
+#endif
+
+#ifndef STDSTR_EN_str_len
+#define STDSTR_EN_str_len       1
+#endif
+
+#ifndef STDSTR_EN_str_chr
+#define STDSTR_EN_str_chr       1
+#endif
+
+#ifndef STDSTR_EN_str_spn
+#define STDSTR_EN_str_spn       1
+#endif
+
+#ifndef STDSTR_EN_str_pbrk
+#define STDSTR_EN_str_pbrk      1
+#endif
+
+#ifndef STDSTR_EN_str_tok_r
+#define STDSTR_EN_str_tok_r     1
+#endif
+
 #if STDSTR_EN_mem_set > 0
 extern void *mem_set  (void *s, char val, size_t n)
 {

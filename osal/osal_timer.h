@@ -20,7 +20,6 @@
 #include "stdint.h"
 #include "osal_config.h"
 
-#if (OSAL_TIMER_EN > 0)
 #if (OSAL_TIMER_TIMEOUT_MAX == UINT8_MAX)
 typedef uint8_t  osal_timer_timeout_t;
 #elif (OSAL_TIMER_TIMEOUT_MAX == UINT16_MAX)
@@ -38,7 +37,6 @@ extern void     osal_timer_event_create ( uint8_t task_id, uint8_t event_id, osa
 extern void     osal_timer_event_update ( uint8_t task_id, uint8_t event_id, osal_timer_timeout_t timeout_ms );
 extern void     osal_timer_event_delete ( uint8_t task_id, uint8_t event_id );
 extern uint32_t osal_timer_event_query  ( uint8_t task_id, uint8_t event_id );
-#endif /* (OSAL_TIMER_EN > 0) */
 
 
 #endif //__OSAL_TIMER_H__
