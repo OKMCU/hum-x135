@@ -69,13 +69,13 @@ static void app_cli_print_key( uint8_t keyValue, uint8_t keyEvent )
         {
             if( cnt != 0 )
             {
-                putchar( '+' );
+                hal_cli_putchar( '+' );
             }
             hal_cli_print_str( pKeyName[i] );
             cnt++;
         }
     }
-    putchar( ' ' );
+    hal_cli_putchar( ' ' );
     hal_cli_print_str( pKeyEvent[keyEvent] );
     hal_cli_print_str( "\r\n" );
 }

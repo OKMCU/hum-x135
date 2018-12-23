@@ -19,6 +19,8 @@
 #include "osal_port.h"
 #include "osal_fifo.h"
 
+#include "stdstr.h"
+
 #if (OSAL_FIFO_EN > 0)
 
 typedef struct FIFOPage {
@@ -41,7 +43,7 @@ extern void *osal_fifo_create(void)
     handle = osal_mem_alloc(sizeof(FIFOHandle_t));
     if(handle != NULL)
     {
-        memset(handle, 0x00, sizeof(FIFOHandle_t));
+        mem_set(handle, 0x00, sizeof(FIFOHandle_t));
     }
     
     return handle;

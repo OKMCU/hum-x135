@@ -28,7 +28,7 @@ extern void UART0_IRQHandler(void) interrupt 4  {spl_uart0_isr();}
 #endif
 #if (SPL_UART1_EN > 0)
 extern void spl_uart1_isr( void );
-extern void UART1_IRQHandler(void)  {spl_uart_isr();}
+extern void UART1_IRQHandler(void)  {spl_uart1_isr();}
 #endif
 #endif
 

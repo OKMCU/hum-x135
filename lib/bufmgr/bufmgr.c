@@ -17,6 +17,10 @@
 #include "stdint.h"
 #include "bufmgr.h"
 
+#ifndef FIFO_BUF_API_EN
+#define FIFO_BUF_API_EN 1
+#endif
+
 #if FIFO_BUF_API_EN > 0
 extern void    fifo_buf_flush( FIFO_BUF_t *p_fifo )
 {

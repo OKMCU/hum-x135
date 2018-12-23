@@ -178,14 +178,14 @@ static void    *osal_timer_cback_create ( void ( *p_fxn )( void * ), void *p_arg
     return p_timer_new;
 }
 
-static void osal_timer_cback_update ( void *timer_id, osal_timer_timeout_t timeout_ms )
-{
-    OSAL_ASSERT( timer_id != NULL );
-    OSAL_ASSERT( timeout_ms != 0 );
-    OSAL_ASSERT( osal_timer_list_find( (OSAL_TIMER_t *)timer_id ) != NULL );
-    
-    ((OSAL_TIMER_t *)timer_id)->timeout = timeout_ms;
-}
+//static void osal_timer_cback_update ( void *timer_id, osal_timer_timeout_t timeout_ms )
+//{
+//    OSAL_ASSERT( timer_id != NULL );
+//    OSAL_ASSERT( timeout_ms != 0 );
+//    OSAL_ASSERT( osal_timer_list_find( (OSAL_TIMER_t *)timer_id ) != NULL );
+//    
+//    ((OSAL_TIMER_t *)timer_id)->timeout = timeout_ms;
+//}
 
 static void osal_timer_cback_delete ( void *timer_id )
 {
@@ -196,13 +196,13 @@ static void osal_timer_cback_delete ( void *timer_id )
     osal_mem_free( timer_id );
 }
 
-static uint32_t osal_timer_cback_query  ( void *timer_id )
-{
-    OSAL_ASSERT( timer_id != NULL );
-    OSAL_ASSERT( osal_timer_list_find( (OSAL_TIMER_t *)timer_id ) != NULL );
-    
-    return ( (OSAL_TIMER_t *)timer_id )->timeout;
-}
+//static uint32_t osal_timer_cback_query  ( void *timer_id )
+//{
+//    OSAL_ASSERT( timer_id != NULL );
+//    OSAL_ASSERT( osal_timer_list_find( (OSAL_TIMER_t *)timer_id ) != NULL );
+//    
+//    return ( (OSAL_TIMER_t *)timer_id )->timeout;
+//}
 #else
 
 #if (OSAL_TIMER_MAX >= UINT8_MAX)

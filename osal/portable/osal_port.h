@@ -56,6 +56,7 @@
 #define     OSAL_ENTER_CRITICAL()           EA = 0
 #define     OSAL_EXIT_CRITICAL()            EA = 1
 
+#define     REG                             data
 #define     IRAM                            idata
 #define     XRAM                            xdata
 #define     FLASH                           code

@@ -61,13 +61,13 @@ static void app_task_cli_handle_rx_char( char c)
         if( cli_cmd.len < CLI_CMD_LEN_MAX - 1 )
         {
             cli_cmd.str[cli_cmd.len++] = c;
-            putchar( c );
+            hal_cli_putchar( c );
         }
     }
     else if( c == '\r' )
     {
-        putchar( c );
-        putchar( '\n' );
+        hal_cli_putchar( c );
+        hal_cli_putchar( '\n' );
         
         if( cli_cmd.len )
         {
@@ -78,7 +78,7 @@ static void app_task_cli_handle_rx_char( char c)
     }
     else if( c == ASCII_VALUE_BACKSPACE )
     {
-        putchar( c );
+        hal_cli_putchar( c );
         if( cli_cmd.len > 0 )
         {
             cli_cmd.len--;
@@ -106,7 +106,7 @@ void app_task_cli( uint8_t task_id, uint8_t event_id )
         {
             while( hal_cli_rx_len() )
             {
-                app_task_cli_handle_rx_char( getchar() );
+                app_task_cli_handle_rx_char( hal_cli_getchar() );
             }
         }
         break;
