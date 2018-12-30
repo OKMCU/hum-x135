@@ -43,7 +43,7 @@
 #if APP_WATERDET_EN > 0
 #define WATER_INDEX_IIR(old_idx, new_idx)    (uint16_t)(((uint32_t)old_idx*3+(uint32_t)new_idx)>>2)
 #define WATER_INDEX_IIR_CNT                  5
-#define WATER_INDEX_NO_WATER_THRESHOLD       1000
+#define WATER_INDEX_NO_WATER_THRESHOLD       2000
 #endif
 
 #if APP_LIGHT_EN > 0
