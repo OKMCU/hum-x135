@@ -12,7 +12,7 @@
 
  ******************************************************************************
  Release Name: 
- Release Date: 2016-06-09 06:57:09
+ Release Date: 
  *****************************************************************************/
  
 #include "osal.h"
@@ -48,13 +48,12 @@ extern uint8_t hal_cli_rx_len( void )
     return FIFO_BUF_EMPTY(rx_buf_head, rx_buf_tail) ? 0 : 1;
 }
 
-extern char putchar(char c)
+extern void hal_cli_putchar(char c)
 {
     spl_uart_txd( SPL_UART_PORT_0, (uint8_t)c );
-    return c;
 }
 
-extern char getchar( void )
+extern char hal_cli_getchar( void )
 {
     char c;
     if( !FIFO_BUF_EMPTY(rx_buf_head, rx_buf_tail) )
@@ -70,7 +69,7 @@ extern void hal_cli_print_str(const char *s)
 {
     while(*s)
     {
-        putchar(*s++);
+        hal_cli_putchar(*s++);
     }
 }
 
@@ -84,7 +83,7 @@ extern void hal_cli_print_sint(int32_t num)
     
     for(i = 0; i < len; i++)
     {
-        putchar(str[i]);
+        hal_cli_putchar(str[i]);
     }
     
 }
@@ -99,7 +98,7 @@ extern void hal_cli_print_uint(uint32_t num)
     
     for(i = 0; i < len; i++)
     {
-        putchar(str[i]);
+        hal_cli_putchar(str[i]);
     }
 }
 
@@ -113,7 +112,7 @@ extern void hal_cli_print_hex8(uint8_t num)
     
     for(i = 0; i < len; i++)
     {
-        putchar(str[i]);
+        hal_cli_putchar(str[i]);
     }
 }
 
@@ -128,7 +127,7 @@ extern void hal_cli_print_hex16(uint16_t num)
     
     for(i = 0; i < len; i++)
     {
-        putchar(str[i]);
+        hal_cli_putchar(str[i]);
     }
 }
 
@@ -142,7 +141,7 @@ extern void hal_cli_print_hex32(uint32_t num)
     
     for(i = 0; i < len; i++)
     {
-        putchar(str[i]);
+        hal_cli_putchar(str[i]);
     }
 }
 #endif

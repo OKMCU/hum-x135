@@ -12,7 +12,7 @@
 
  ******************************************************************************
  Release Name: 
- Release Date: 2016-06-09 06:57:09
+ Release Date: 
  *****************************************************************************/
 #ifndef __OSAL_CONFIG_H__
 #define __OSAL_CONFIG_H__
@@ -28,7 +28,7 @@
 #define     OSAL_TIMER_TIMEOUT_MAX  UINT32_MAX  //should be UINT8_MAX or UINT16_MAX or UINT32_MAX
 #define     OSAL_MEM_EN             0
 
-#define     OSAL_TASK_MAX           4
+#define     OSAL_TASK_MAX           6
 #define     OSAL_EVENT_MAX          8      //must be 8, 16 or 32
 #define     OSAL_FIFO_PAGE_SIZE     64
 

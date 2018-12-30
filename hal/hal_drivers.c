@@ -65,6 +65,14 @@ extern void hal_driver_init( void )
     hal_led_set( HAL_LED_ALL, HAL_LED_MODE_OFF );
 #endif
 
+#if (HAL_FREQDET_EN > 0)
+    hal_freqdet_init();
+#endif
+
+#if (HAL_WATERDET_EN > 0)
+    hal_waterdet_init();
+#endif
+
 }
 
 /**************************************************************************************************
@@ -87,10 +95,11 @@ extern void hal_task_driver_basic ( uint8_t task_id, uint8_t event_id )
         case TASK_EVT_HAL_DRIVER_BASIC_CLI_RXNE:
             hal_cli_driver_handle_rxne();
         break;
-#endif
+
         //case TASK_EVT_HAL_DRIVER_BASIC_CLI_TXE:
         //    hal_cli_driver_handle_txe();
         //break;
+#endif
         
         default:
             HAL_ASSERT_FORCED();

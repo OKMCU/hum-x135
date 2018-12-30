@@ -12,7 +12,7 @@
 
  ******************************************************************************
  Release Name: 
- Release Date: 2016-06-09 06:57:09
+ Release Date: 
  *****************************************************************************/
 
 /**************************************************************************************************
@@ -153,6 +153,7 @@ static void app_cli_cmd_on           ( char *p_arg )
 {
     p_arg = p_arg;
     hal_mist_on();
+    app_info.sys_flags |= SYS_FLAGS_MIST_ON;
     hal_cli_print_str( "Spray ON.\r\n\r\n" );
 }
 #endif
@@ -162,6 +163,7 @@ static void app_cli_cmd_off          ( char *p_arg )
 {
     p_arg = p_arg;
     hal_mist_off();
+    app_info.sys_flags &= ~SYS_FLAGS_MIST_ON;
     hal_cli_print_str( "Spray OFF.\r\n\r\n" );
 }
 #endif

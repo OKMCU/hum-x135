@@ -12,7 +12,7 @@
 
  ******************************************************************************
  Release Name: 
- Release Date: 2016-06-09 06:57:09
+ Release Date: 
  *****************************************************************************/
 
 /**************************************************************************************************
@@ -85,7 +85,6 @@ static void app_cli_print_key( uint8_t keyValue, uint8_t keyEvent )
 extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
 {
     uint16_t keyMerge;
-    int8_t s8_tmp;
     
 #if (APP_CLI_EN > 0)
     app_cli_print_key( keyValue, keyEvent );
@@ -98,16 +97,16 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
         case BUILD_UINT16( HAL_KEY_MIST, KEY_EVENT_ENTER ):
         {
             hal_led_set( HAL_LED_ALL, HAL_LED_MODE_ON );
-            if( app_info.mist_state == MIST_STATE_OFF )
+            if( !(app_info.sys_flags & SYS_FLAGS_MIST_ON) )
             {
-                app_info.mist_state = MIST_STATE_ON;
+                app_info.sys_flags |= SYS_FLAGS_MIST_ON;
                 hal_mist_on();
-            }
-            else
-            {
-                s8_tmp = hal_mcu_hsi_trim_get();
-                s8_tmp++;
-                hal_mcu_hsi_trim_set( s8_tmp );
+
+                osal_event_set( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_RESET );
+                osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_RESET );
+                
+                if( (app_info.sys_flags & SYS_FLAGS_FREQ_FOUND) )
+                    app_info.sys_flags |= SYS_FLAGS_WATERDET_ON;
             }
         }
         break;
@@ -120,9 +119,9 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
 
         case BUILD_UINT16( HAL_KEY_MIST, KEY_EVENT_LONG ):
         {
-            if( app_info.mist_state == MIST_STATE_ON )
+            if( app_info.sys_flags & SYS_FLAGS_MIST_ON )
             {
-                app_info.mist_state = MIST_STATE_OFF;
+                app_info.sys_flags &= ~SYS_FLAGS_MIST_ON;
                 hal_mist_off();
             }
         }
@@ -130,7 +129,7 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
         
         case BUILD_UINT16( HAL_KEY_MIST, KEY_EVENT_VLONG ):
         {
-            keyMerge = 3;
+            
         }
         break;
 
@@ -143,17 +142,6 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_ENTER ):
         {
             hal_led_set( HAL_LED_ALL, HAL_LED_MODE_ON );
-            if( app_info.mist_state == MIST_STATE_OFF )
-            {
-                app_info.mist_state = MIST_STATE_ON;
-                hal_mist_on();
-            }
-            else
-            {
-                s8_tmp = hal_mcu_hsi_trim_get();
-                s8_tmp--;
-                hal_mcu_hsi_trim_set( s8_tmp );
-            }
         }
         break;
 
@@ -165,13 +153,12 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
 
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_LONG ):
         {
-            hal_mcu_hsi_trim_set( 0 );
+            
         }
         break;
         
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_VLONG ):
         {
-            keyMerge = 7;
         }
         break;
 
@@ -183,13 +170,11 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
 
         case BUILD_UINT16( HAL_KEY_MIST + HAL_KEY_LIGHT, KEY_EVENT_LONG ):
         {
-            keyMerge = 8;
         }
         break;
         
         case BUILD_UINT16( HAL_KEY_MIST + HAL_KEY_LIGHT, KEY_EVENT_VLONG ):
         {
-            keyMerge = 9;
         }
         break;
 

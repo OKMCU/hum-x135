@@ -12,7 +12,7 @@
 
  ******************************************************************************
  Release Name: 
- Release Date: 2016-06-09 06:57:09
+ Release Date: 
  *****************************************************************************/
 
 #ifndef __HAL_CONFIG_H__
@@ -27,11 +27,12 @@
 #define HAL_CLI_EN                       0
 #define HAL_CLI_PRINT_EN                 0
 #define HAL_CLI_RX_BUF_SIZE              8      //size should be < 255
-#define HAL_CLI_TX_BUF_SIZE              0      //size should be < 255
 
 #define HAL_MIST_EN                      1
 #define HAL_KEY_EN                       1
 #define HAL_LED_EN                       1
+#define HAL_FREQDET_EN                   1
+#define HAL_WATERDET_EN                  1
 
 
 /**************************************************************************************************

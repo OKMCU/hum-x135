@@ -25,14 +25,22 @@ typedef struct app_info_t {
 #if APP_KEY_EN > 0
     uint8_t key_state;
 #endif
-    uint8_t mist_state;
+    uint8_t sys_flags;
+#if APP_FHOP_EN > 0
+    uint16_t freq_index;
+#endif
+#if APP_WATERDET_EN > 0
+    uint16_t water_index;
+#endif
+
 } APP_INFO_t;
 /* ------------------------------------------------------------------------------------------------
  *                                           CONSTANTS
  * ------------------------------------------------------------------------------------------------
  */
-#define MIST_STATE_OFF          0
-#define MIST_STATE_ON           1
+#define SYS_FLAGS_MIST_ON           (1<<0)
+#define SYS_FLAGS_FREQ_FOUND        (1<<1)
+#define SYS_FLAGS_WATERDET_ON       (1<<2)
 
 
 /* ------------------------------------------------------------------------------------------------

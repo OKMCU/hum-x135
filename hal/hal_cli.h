@@ -12,7 +12,7 @@
 
  ******************************************************************************
  Release Name: 
- Release Date: 2016-06-09 06:57:09
+ Release Date: 
  *****************************************************************************/
  
 #ifndef __HAL_CLI_H__
@@ -24,8 +24,8 @@
 
 extern void hal_cli_init         ( void );
 extern uint8_t hal_cli_rx_len    ( void );
-extern char putchar( char c );
-extern char getchar( void );
+extern void hal_cli_putchar      ( char c );
+extern char hal_cli_getchar      ( void );
 #if (HAL_CLI_PRINT_EN > 0)
 extern void hal_cli_print_str    ( const char *s );
 extern void hal_cli_print_sint   ( int32_t num );

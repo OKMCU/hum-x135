@@ -18,5 +18,14 @@
 #include "app_event_key.h"
 #endif
 
+#if APP_FHOP_EN > 0
+#include "app_task_fhop.h"
+#include "app_event_fhop.h"
+#endif
+
+#if APP_WATERDET_EN > 0
+#include "app_task_waterdet.h"
+#include "app_event_waterdet.h"
+#endif
 
 #endif

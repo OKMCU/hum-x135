@@ -51,6 +51,16 @@
 
 #define SPL_ADC_VALUE_MAX                4095
 
+#if (SPL_ADC_BANDGAP_EN > 0)
+#define     SPL_ADC_BANDGAP_VOLTAGE(bandgap_value)  ((double)bandgap_value*3072/4096)
+#endif
+
+extern void     spl_adc_init( void );
+
+#if (SPL_ADC_BANDGAP_EN > 0)
+extern uint16_t spl_adc_get_bandgap( void );
+#endif
+
 extern uint16_t spl_adc_read( uint8_t ch );
 
 

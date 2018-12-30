@@ -64,7 +64,15 @@ extern void app_event_main_por( void )
 #if APP_KEY_EN > 0
     app_info.key_state = 0x00;
 #endif
-    app_info.mist_state = MIST_STATE_OFF;
+    app_info.sys_flags = 0x00;
+
+#if APP_FHOP_EN > 0
+    app_info.freq_index = 0;
+#endif
+
+#if APP_WATERDET_EN > 0
+    app_info.water_index = 0;
+#endif
 
     osal_event_set( TASK_ID_APP_MAIN, TASK_EVT_APP_MAIN_IDLE );
 }
@@ -107,6 +115,26 @@ extern void app_event_main_idle( void )
         osal_timer_event_create( TASK_ID_APP_KEY, TASK_EVT_APP_KEY_UPDATE, HAL_KEY_DEBOUNCE_TIME );
     }
 #endif
+
+
+    if( app_info.sys_flags & SYS_FLAGS_MIST_ON )
+    {
+        if( !(app_info.sys_flags & SYS_FLAGS_FREQ_FOUND) )
+        {
+            #if APP_FHOP_EN > 0
+            app_info.freq_index = hal_freqdet_read();
+            osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_UPDATE );
+            #endif
+        }
+
+        if( app_info.sys_flags & SYS_FLAGS_WATERDET_ON )
+        {
+            #if APP_WATERDET_EN > 0
+            app_info.water_index = hal_waterdet_read();
+            osal_event_set( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_UPDATE );
+            #endif
+        }
+    }
 
     osal_event_set( TASK_ID_APP_MAIN, TASK_EVT_APP_MAIN_IDLE );
 }

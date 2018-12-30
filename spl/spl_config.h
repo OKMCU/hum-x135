@@ -12,7 +12,7 @@
 
  ******************************************************************************
  Release Name: 
- Release Date: 2016-06-09 06:57:09
+ Release Date: 
  *****************************************************************************/
 
 #ifndef __SPL_CONFIG_H__
@@ -31,16 +31,16 @@
 #define SPL_EXTINT_EN                       0
 #define SPL_EXTINT0_EN                      0
 #define SPL_EXTINT1_EN                      0
-#define SPL_ADC_EN                          0
+#define SPL_ADC_EN                          1
 #define SPL_ADC_CH0_EN                      0
 #define SPL_ADC_CH1_EN                      0
 #define SPL_ADC_CH2_EN                      0
 #define SPL_ADC_CH3_EN                      0
 #define SPL_ADC_CH4_EN                      0
-#define SPL_ADC_CH5_EN                      0
-#define SPL_ADC_CH6_EN                      0
+#define SPL_ADC_CH5_EN                      1
+#define SPL_ADC_CH6_EN                      1
 #define SPL_ADC_CH7_EN                      0
-#define SPL_ADC_BANDGAP_EN                  0
+#define SPL_ADC_BANDGAP_EN                  1
 #define SPL_SYSCLK_EN                       1
 #define SPL_SYSCLK_TRIM_EN                  1
 #define SPL_SYSCLK_CLKO_EN                  0

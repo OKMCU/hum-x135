@@ -12,7 +12,7 @@
 
  ******************************************************************************
  Release Name: 
- Release Date: 2016-06-09 06:57:09
+ Release Date: 
  *****************************************************************************/
 
 #include "osal.h"
@@ -27,6 +27,18 @@ FLASH OSAL_TASK_t osal_task_list[OSAL_TASK_MAX] = {
 
 #if APP_CLI_EN > 0
     app_task_cli,
+#else
+    NULL,
+#endif
+
+#if APP_FHOP_EN > 0
+    app_task_fhop,
+#else
+    NULL,
+#endif
+
+#if APP_WATERDET_EN > 0
+    app_task_waterdet,
 #else
     NULL,
 #endif
@@ -50,20 +62,22 @@ int main( void )
     /* Initialize mcu and devices */
     hal_driver_init();
     
-    /* Create HAL Tasks */
-    //osal_task_create( hal_task_driver_basic, TASK_ID_HAL_DRIVER_BASIC );
-    
-    /* Create APP Tasks */
-    //osal_task_create( app_task_cli, TASK_ID_APP_CLI );
 #if APP_CLI_EN > 0
     app_task_cli_init();
+#endif
+
+#if APP_FHOP_EN > 0
+    app_task_fhop_init();
+#endif
+
+#if APP_WATERDET_EN > 0
+    app_task_waterdet_init();
 #endif
 
 #if APP_KEY_EN > 0
     app_task_key_init();
 #endif
 
-    //osal_task_create( app_task_main, TASK_ID_APP_MAIN );
     app_task_main_init();
 
     /* Enable Interrupts */

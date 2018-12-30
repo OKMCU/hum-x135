@@ -65,6 +65,10 @@ extern void hal_mcu_init( void )
 #if (SPL_TIMER_EN > 0)
     spl_timer_init();
 #endif
+
+#if (SPL_ADC_EN > 0)
+    spl_adc_init();
+#endif
 }
 
 #if HAL_MCU_RESET_EN > 0

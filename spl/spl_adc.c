@@ -23,6 +23,55 @@
 
 #if (SPL_ADC_EN > 0)
 
+#if (SPL_ADC_BANDGAP_EN > 0)
+static xdata uint16_t bandgap_value;
+#endif
+
+#if (SPL_ADC_BANDGAP_EN > 0)
+static void ADC_Bypass (void)    // The first three times convert should be bypass, to improve accuracy
+{ 
+    uint8_t ozc; 
+    for ( ozc=0; ozc<0x03; ozc++ ) 
+    { 
+        clr_ADCF;
+        set_ADCS; 
+        while(ADCF == 0); 
+    } 
+} 
+#endif
+
+extern void     spl_adc_init( void )
+{
+#if (SPL_ADC_BANDGAP_EN > 0)
+    uint8_t bandgap_hi, bandgap_lo;
+    //set_IAPEN;
+    TA=0xAA;TA=0x55;CHPCON|=SET_BIT0;
+    IAPAL = 0x0C; 
+    IAPAH = 0x00; 
+    IAPCN = 0x04;
+    //set_IAPGO;
+    TA=0xAA;TA=0x55;IAPTRG|=SET_BIT0;
+    bandgap_hi = IAPFD;
+    IAPAL = 0x0D;
+    IAPAH = 0x00; 
+    IAPCN = 0x04;
+    //set_IAPGO;
+    TA=0xAA;TA=0x55;IAPTRG|=SET_BIT0;
+    bandgap_lo = IAPFD;
+    bandgap_lo &= 0x0F;
+    //clr_IAPEN;
+    TA=0xAA;TA=0x55;CHPCON&=~SET_BIT0;
+    bandgap_value = (bandgap_hi<<4) | bandgap_lo;
+#endif
+}
+
+#if (SPL_ADC_BANDGAP_EN > 0)
+extern uint16_t spl_adc_get_bandgap( void )
+{
+    return bandgap_value;
+}
+#endif
+
 extern uint16_t spl_adc_read( uint8_t ch )
 {
     switch( ch )
@@ -70,6 +119,7 @@ extern uint16_t spl_adc_read( uint8_t ch )
 #if (SPL_ADC_BANDGAP_EN > 0)
         default:
             Enable_ADC_BandGap;
+            ADC_Bypass();
         break;
 #endif
     }

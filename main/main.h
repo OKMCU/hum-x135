@@ -12,7 +12,7 @@
 
  ******************************************************************************
  Release Name: 
- Release Date: 2016-06-09 06:57:09
+ Release Date: 
  *****************************************************************************/
 
 #ifndef __MAIN_H__
@@ -20,11 +20,19 @@
 
 #define TASK_ID_HAL_DRIVER_BASIC            0
 #define TASK_ID_APP_CLI                     1
-#define TASK_ID_APP_KEY                     2
-#define TASK_ID_APP_MAIN                    3
+#define TASK_ID_APP_FHOP                    2
+#define TASK_ID_APP_WATERDET                3
+#define TASK_ID_APP_KEY                     4
+#define TASK_ID_APP_MAIN                    5
 
 #define TASK_EVT_APP_CLI_RX_CHAR            1
 #define TASK_EVT_APP_CLI_RX_OVF             2
+
+#define TASK_EVT_APP_FHOP_RESET             1
+#define TASK_EVT_APP_FHOP_UPDATE            2
+
+#define TASK_EVT_APP_WATERDET_RESET         1
+#define TASK_EVT_APP_WATERDET_UPDATE        2
 
 #define TASK_EVT_APP_KEY_UPDATE             0
 
