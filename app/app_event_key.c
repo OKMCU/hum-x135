@@ -41,6 +41,10 @@
  **************************************************************************************************/
 
 /**************************************************************************************************
+ * MACROS
+ **************************************************************************************************/
+
+/**************************************************************************************************
  * GLOBAL VARIABLES
  **************************************************************************************************/
 #if (APP_CLI_EN > 0)
@@ -96,34 +100,67 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
     {
         case BUILD_UINT16( HAL_KEY_MIST, KEY_EVENT_ENTER ):
         {
-            hal_led_set( HAL_LED_ALL, HAL_LED_MODE_ON );
-            if( !(app_info.sys_flags & SYS_FLAGS_MIST_ON) )
-            {
-                app_info.sys_flags |= SYS_FLAGS_MIST_ON;
-                hal_mist_on();
-
-                osal_event_set( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_RESET );
-                osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_RESET );
-                
-                if( (app_info.sys_flags & SYS_FLAGS_FREQ_FOUND) )
-                    app_info.sys_flags |= SYS_FLAGS_WATERDET_ON;
-            }
+            //BEEP BUZZER
+            
+            //hal_led_set( HAL_LED_ALL, HAL_LED_MODE_ON );
+            //if( !(app_info.sys_flags & SYS_FLAGS_MIST_ON) )
+            //{
+            //    app_info.sys_flags |= SYS_FLAGS_MIST_ON;
+            //    hal_mist_on();
+            //
+            //    osal_event_set( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_RESET );
+            //    osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_RESET );
+            //    
+            //    if( (app_info.sys_flags & SYS_FLAGS_FREQ_FOUND) )
+            //        app_info.sys_flags |= SYS_FLAGS_WATERDET_ON;
+            //}
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_MIST, KEY_EVENT_SHORT ):
         {
-            hal_led_set( HAL_LED_ALL, HAL_LED_MODE_OFF );
+            app_info.mist_mode++;
+            if( app_info.mist_mode > MIST_MODE_4 )
+            {
+                app_info.mist_mode = MIST_MODE_OFF;
+            }
+
+            if      ( app_info.mist_mode == MIST_MODE_OFF )   LED_IND_MIST_MODE_OFF();
+            else if ( app_info.mist_mode == MIST_MODE_1   )   LED_IND_MIST_MODE_1();
+            else if ( app_info.mist_mode == MIST_MODE_2   )   LED_IND_MIST_MODE_2();
+            else if ( app_info.mist_mode == MIST_MODE_3   )   LED_IND_MIST_MODE_3();
+            else if ( app_info.mist_mode == MIST_MODE_4   )   LED_IND_MIST_MODE_4();
+
+            if( app_info.sys_flags & SYS_FLAGS_FREQ_FOUND )
+            {
+                osal_event_set( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_SET_MODE );
+            }
+            else
+            {
+                if( app_info.mist_mode == MIST_MODE_OFF )
+                {
+                    osal_event_set( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_SET_MODE );
+                }
+                else
+                {
+                    hal_mist_on();
+                    app_info.sys_flags |= SYS_FLAGS_MIST_ON;
+                    osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_RESET );
+                }
+            }
+            
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_MIST, KEY_EVENT_LONG ):
         {
-            if( app_info.sys_flags & SYS_FLAGS_MIST_ON )
-            {
-                app_info.sys_flags &= ~SYS_FLAGS_MIST_ON;
-                hal_mist_off();
-            }
+            //if( app_info.sys_flags & SYS_FLAGS_MIST_ON )
+            //{
+            //    app_info.sys_flags &= ~SYS_FLAGS_MIST_ON;
+            //    hal_mist_off();
+            //}
+            app_info.mist_mode = MIST_MODE_OFF;
+            osal_event_set( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_SET_MODE );
         }
         break;
         
@@ -135,57 +172,18 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
 
         case BUILD_UINT16( HAL_KEY_MIST, KEY_EVENT_LEAVE ):
         {
-            hal_led_set( HAL_LED_ALL, HAL_LED_MODE_OFF );
+            
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_ENTER ):
         {
             app_info.light_mode++;
-            hal_light_set( HAL_LIGHT_R, 0 );
-            hal_light_set( HAL_LIGHT_G, 0 );
-            hal_light_set( HAL_LIGHT_B, 0 );
-            if( app_info.light_mode == 1 )
+            if( app_info.light_mode >= LIGHT_MODE_SEL + LIGHT_COLOR_SEL_SIZE )
             {
-                hal_light_set( HAL_LIGHT_R, 64 );
+                app_info.light_mode = LIGHT_MODE_OFF;
             }
-            else if( app_info.light_mode == 2 )
-            {
-                hal_light_set( HAL_LIGHT_R, 128 );
-            }
-            else if( app_info.light_mode == 3 )
-            {
-                hal_light_set( HAL_LIGHT_G, 64 );
-            }
-            else if( app_info.light_mode == 4 )
-            {
-                hal_light_set( HAL_LIGHT_G, 128 );
-            }
-            else if( app_info.light_mode == 5 )
-            {
-                hal_light_set( HAL_LIGHT_B, 64 );
-            }
-            else if( app_info.light_mode == 6 )
-            {
-                hal_light_set( HAL_LIGHT_B, 128 );
-            }
-            else if( app_info.light_mode == 7 )
-            {
-                hal_light_set( HAL_LIGHT_R, 128 );
-                hal_light_set( HAL_LIGHT_G, 128 );
-                hal_light_set( HAL_LIGHT_B, 128 );
-                
-            }
-            else if( app_info.light_mode == 8 )
-            {
-                hal_light_set( HAL_LIGHT_R, 255 );
-                hal_light_set( HAL_LIGHT_G, 255 );
-                hal_light_set( HAL_LIGHT_B, 255 );
-            }
-            else
-            {
-                app_info.light_mode = 0;
-            }
+            osal_event_set( TASK_ID_APP_LIGHT,  TASK_EVT_APP_LIGHT_SET_MODE );
         }
         break;
 
@@ -196,9 +194,8 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
 
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_LONG ):
         {
-            hal_light_set( HAL_LIGHT_R, 0 );
-            hal_light_set( HAL_LIGHT_G, 0 );
-            hal_light_set( HAL_LIGHT_B, 0 );   
+            app_info.light_mode = LIGHT_MODE_OFF;
+            osal_event_set( TASK_ID_APP_LIGHT,  TASK_EVT_APP_LIGHT_SET_MODE );
         }
         break;
         

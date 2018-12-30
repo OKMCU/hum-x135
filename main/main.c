@@ -48,7 +48,20 @@ FLASH OSAL_TASK_t osal_task_list[OSAL_TASK_MAX] = {
 #else
     NULL,
 #endif
-    app_task_main,
+
+#if APP_LIGHT_EN > 0
+    app_task_light,
+#else
+    NULL,
+#endif
+
+#if APP_MIST_EN > 0
+    app_task_mist,
+#else
+    NULL,
+#endif
+
+    app_task_main
 };
 
 int main( void )
@@ -76,6 +89,14 @@ int main( void )
 
 #if APP_KEY_EN > 0
     app_task_key_init();
+#endif
+
+#if APP_LIGHT_EN > 0
+    app_task_light_init();
+#endif
+
+#if APP_MIST_EN > 0
+    app_task_mist_init();
 #endif
 
     app_task_main_init();

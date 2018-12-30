@@ -24,11 +24,11 @@
 #define     OSAL_MSG_EN             0
 #define     OSAL_TIMER_EN           1
 #define     OSAL_TIMER_STATIC_EN    1
-#define     OSAL_TIMER_MAX          8           //meaningless if OSAL_TIMER_STATIC_EN == 0
+#define     OSAL_TIMER_MAX          14           //meaningless if OSAL_TIMER_STATIC_EN == 0
 #define     OSAL_TIMER_TIMEOUT_MAX  UINT32_MAX  //should be UINT8_MAX or UINT16_MAX or UINT32_MAX
 #define     OSAL_MEM_EN             0
 
-#define     OSAL_TASK_MAX           6
+#define     OSAL_TASK_MAX           8
 #define     OSAL_EVENT_MAX          8      //must be 8, 16 or 32
 #define     OSAL_FIFO_PAGE_SIZE     64
 

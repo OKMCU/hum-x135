@@ -78,6 +78,10 @@ extern void app_event_main_por( void )
     app_info.light_mode = 0;
 #endif
 
+#if APP_MIST_EN > 0
+    app_info.mist_mode = 0;
+#endif
+
     osal_event_set( TASK_ID_APP_MAIN, TASK_EVT_APP_MAIN_IDLE );
 }
 
@@ -119,7 +123,6 @@ extern void app_event_main_idle( void )
         osal_timer_event_create( TASK_ID_APP_KEY, TASK_EVT_APP_KEY_UPDATE, HAL_KEY_DEBOUNCE_TIME );
     }
 #endif
-
 
     if( app_info.sys_flags & SYS_FLAGS_MIST_ON )
     {

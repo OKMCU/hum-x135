@@ -1,6 +1,6 @@
 /******************************************************************************
 
- @file  app_event_waterdet.c
+ @file  app_event_mist.c
 
  @brief 
 
@@ -27,7 +27,7 @@
 #include "stdstr.h"
 #include "stringx.h"
 
-#if APP_WATERDET_EN > 0
+#if APP_MIST_EN > 0
 /**************************************************************************************************
  * TYPE DEFINES
  **************************************************************************************************/
@@ -44,13 +44,8 @@
  * GLOBAL VARIABLES
  **************************************************************************************************/
 
-extern void app_event_waterdet_no_water( void )
+extern void app_event_mist_stop( void )
 {   
-#if APP_CLI_EN > 0
-    hal_cli_print_str( "No Water" );
-    hal_cli_print_str( ".\r\n" );
-#endif
-
     app_info.mist_mode = MIST_MODE_OFF;
     osal_event_set( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_SET_MODE );
     LED_IND_MIST_MODE_OFF();

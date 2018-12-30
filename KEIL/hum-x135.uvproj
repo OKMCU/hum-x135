@@ -578,6 +578,21 @@
               <FileType>1</FileType>
               <FilePath>..\app\app_task_waterdet.c</FilePath>
             </File>
+            <File>
+              <FileName>app_task_light.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\app\app_task_light.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_task_mist.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\app\app_task_mist.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_event_mist.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\app\app_event_mist.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

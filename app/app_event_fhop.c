@@ -46,7 +46,6 @@
 
 extern void app_event_fhop_rough_tune_finish( void )
 {   
-    hal_led_set( HAL_LED_ALL, HAL_LED_MODE_ON );
 #if APP_CLI_EN > 0
     hal_cli_print_str( "Rough Tune to " );
     hal_cli_print_sint( hal_mcu_hsi_trim_get() );
@@ -59,7 +58,6 @@ extern void app_event_fhop_rough_tune_finish( void )
 
 extern void app_event_fhop_fine_tune_finish( void )
 {   
-    hal_led_set( HAL_LED_ALL, HAL_LED_MODE_OFF );
 #if APP_CLI_EN > 0
     hal_cli_print_str( "Fine Tune to " );
     hal_cli_print_sint( hal_mcu_hsi_trim_get() );
@@ -67,6 +65,7 @@ extern void app_event_fhop_fine_tune_finish( void )
     hal_cli_print_str( ".\r\n" );
 #endif
     app_info.sys_flags |= SYS_FLAGS_FREQ_FOUND;
+    osal_event_set(TASK_ID_APP_MIST, TASK_EVT_APP_MIST_SET_MODE );
 }
 
 #endif

@@ -28,4 +28,13 @@
 #include "app_event_waterdet.h"
 #endif
 
+#if APP_LIGHT_EN > 0
+#include "app_task_light.h"
+#endif
+
+#if APP_MIST_EN > 0
+#include "app_task_mist.h"
+#include "app_event_mist.h"
+#endif
+
 #endif
