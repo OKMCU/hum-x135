@@ -30,6 +30,7 @@
 #define APP_KEY_EN                      1
 #define APP_FHOP_EN                     1
 #define APP_WATERDET_EN                 1
+#define APP_LIGHT_EN                    1
 
 #if APP_FHOP_EN > 0
 #define FREQ_INDEX_IIR(old_idx, new_idx)     (uint16_t)(((uint32_t)old_idx*31+(uint32_t)new_idx)>>5)

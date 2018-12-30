@@ -32,7 +32,9 @@ typedef struct app_info_t {
 #if APP_WATERDET_EN > 0
     uint16_t water_index;
 #endif
-
+#if APP_LIGHT_EN > 0
+    uint8_t light_mode;
+#endif
 } APP_INFO_t;
 /* ------------------------------------------------------------------------------------------------
  *                                           CONSTANTS

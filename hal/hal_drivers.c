@@ -73,6 +73,10 @@ extern void hal_driver_init( void )
     hal_waterdet_init();
 #endif
 
+#if (HAL_LIGHT_EN > 0)
+    hal_light_init();
+#endif
+
 }
 
 /**************************************************************************************************

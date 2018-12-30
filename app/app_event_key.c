@@ -141,19 +141,64 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
 
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_ENTER ):
         {
-            hal_led_set( HAL_LED_ALL, HAL_LED_MODE_ON );
+            app_info.light_mode++;
+            hal_light_set( HAL_LIGHT_R, 0 );
+            hal_light_set( HAL_LIGHT_G, 0 );
+            hal_light_set( HAL_LIGHT_B, 0 );
+            if( app_info.light_mode == 1 )
+            {
+                hal_light_set( HAL_LIGHT_R, 64 );
+            }
+            else if( app_info.light_mode == 2 )
+            {
+                hal_light_set( HAL_LIGHT_R, 128 );
+            }
+            else if( app_info.light_mode == 3 )
+            {
+                hal_light_set( HAL_LIGHT_G, 64 );
+            }
+            else if( app_info.light_mode == 4 )
+            {
+                hal_light_set( HAL_LIGHT_G, 128 );
+            }
+            else if( app_info.light_mode == 5 )
+            {
+                hal_light_set( HAL_LIGHT_B, 64 );
+            }
+            else if( app_info.light_mode == 6 )
+            {
+                hal_light_set( HAL_LIGHT_B, 128 );
+            }
+            else if( app_info.light_mode == 7 )
+            {
+                hal_light_set( HAL_LIGHT_R, 128 );
+                hal_light_set( HAL_LIGHT_G, 128 );
+                hal_light_set( HAL_LIGHT_B, 128 );
+                
+            }
+            else if( app_info.light_mode == 8 )
+            {
+                hal_light_set( HAL_LIGHT_R, 255 );
+                hal_light_set( HAL_LIGHT_G, 255 );
+                hal_light_set( HAL_LIGHT_B, 255 );
+            }
+            else
+            {
+                app_info.light_mode = 0;
+            }
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_SHORT ):
         {
-            hal_led_set( HAL_LED_ALL, HAL_LED_MODE_OFF );
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_LONG ):
         {
-            
+            hal_light_set( HAL_LIGHT_R, 0 );
+            hal_light_set( HAL_LIGHT_G, 0 );
+            hal_light_set( HAL_LIGHT_B, 0 );   
         }
         break;
         
@@ -164,7 +209,6 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
 
         case BUILD_UINT16( HAL_KEY_LIGHT, KEY_EVENT_LEAVE ):
         {
-            hal_led_set( HAL_LED_ALL, HAL_LED_MODE_OFF );
         }
         break;
 

@@ -465,6 +465,11 @@
               <FileType>1</FileType>
               <FilePath>..\hal\hal_waterdet.c</FilePath>
             </File>
+            <File>
+              <FileName>hal_light.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\hal\hal_light.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

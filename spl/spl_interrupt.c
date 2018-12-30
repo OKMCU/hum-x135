@@ -44,6 +44,14 @@ void EINT1_IRQHandler(void)         {spl_extint_int1_isr();}
 #endif
 
 #if (SPL_TIMER_EN > 0)
+#if (SPL_TIMER0_EN > 0)
+extern void SPL_TIMER0_CALLBACK( void );
+void Timer0_ISR (void) interrupt 1  {SPL_TIMER0_CALLBACK();}
+#endif//(SPL_TIMER0_EN > 0)
+#if (SPL_TIMER1_EN > 0)
+extern void SPL_TIMER1_CALLBACK( void );
+void Timer1_ISR (void) interrupt 3  {SPL_TIMER1_CALLBACK();}
+#endif//(SPL_TIMER1_EN > 0)
 #if (SPL_TIMER_SYSTICK_EN > 0)
 extern void SPL_TIMER_SYSTICK_CALLBACK( void );
 void Timer2_ISR (void) interrupt 5  {clr_TF2; SPL_TIMER_SYSTICK_CALLBACK();}

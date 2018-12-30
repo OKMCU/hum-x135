@@ -33,6 +33,7 @@
 #define HAL_LED_EN                       1
 #define HAL_FREQDET_EN                   1
 #define HAL_WATERDET_EN                  1
+#define HAL_LIGHT_EN                     1
 
 
 /**************************************************************************************************

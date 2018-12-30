@@ -74,6 +74,10 @@ extern void app_event_main_por( void )
     app_info.water_index = 0;
 #endif
 
+#if APP_LIGHT_EN > 0
+    app_info.light_mode = 0;
+#endif
+
     osal_event_set( TASK_ID_APP_MAIN, TASK_EVT_APP_MAIN_IDLE );
 }
 
