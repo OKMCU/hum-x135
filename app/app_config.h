@@ -28,8 +28,8 @@
 #define APP_CLI_CMD_ON_EN               0
 #define APP_CLI_CMD_OFF_EN              0
 #define APP_KEY_EN                      1
-#define APP_FHOP_EN                     1
-#define APP_WATERDET_EN                 1
+#define APP_FHOP_EN                     0
+#define APP_WATERDET_EN                 0
 #define APP_LIGHT_EN                    1
 #define APP_MIST_EN                     1
 
