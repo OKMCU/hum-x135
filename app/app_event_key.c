@@ -145,7 +145,9 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
                 {
                     hal_mist_on();
                     app_info.sys_flags |= SYS_FLAGS_MIST_ON;
+                    #if APP_FHOP_EN > 0
                     osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_RESET );
+                    #endif
                 }
             }
             
