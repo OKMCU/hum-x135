@@ -34,6 +34,8 @@
 #define HAL_FREQDET_EN                   1
 #define HAL_WATERDET_EN                  1
 #define HAL_LIGHT_EN                     1
+#define HAL_BUZZER_EN                    1
+#define HAL_FAN_EN                       1
 
 
 /**************************************************************************************************

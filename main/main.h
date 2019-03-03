@@ -23,9 +23,10 @@
 #define TASK_ID_APP_FHOP                    2
 #define TASK_ID_APP_WATERDET                3
 #define TASK_ID_APP_KEY                     4
-#define TASK_ID_APP_LIGHT                   5
-#define TASK_ID_APP_MIST                    6
-#define TASK_ID_APP_MAIN                    7
+#define TASK_ID_APP_BUZZER                  5
+#define TASK_ID_APP_LIGHT                   6
+#define TASK_ID_APP_MIST                    7
+#define TASK_ID_APP_MAIN                    8
 
 #define TASK_EVT_APP_CLI_RX_CHAR            1
 #define TASK_EVT_APP_CLI_RX_OVF             2
@@ -38,6 +39,10 @@
 #define TASK_EVT_APP_WATERDET_START         1
 
 #define TASK_EVT_APP_KEY_UPDATE             0
+
+#define TASK_EVT_APP_BUZZER_BEEP_UPDATE     0
+#define TASK_EVT_APP_BUZZER_BEEP_ON         1
+#define TASK_EVT_APP_BUZZER_BEEP_OFF        2
 
 #define TASK_EVT_APP_LIGHT_SET_MODE         0
 #define TASK_EVT_APP_LIGHT_UPD_START        1

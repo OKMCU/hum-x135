@@ -82,6 +82,11 @@ extern void app_event_main_por( void )
     app_info.mist_mode = 0;
 #endif
 
+#if APP_BUZZER_EN > 0
+    app_info.buzzer_beep = BUZZER_BEEP_DOUBLE_SHORT;
+    osal_event_set( TASK_ID_APP_BUZZER, TASK_EVT_APP_BUZZER_BEEP_UPDATE );
+#endif
+
     osal_event_set( TASK_ID_APP_MAIN, TASK_EVT_APP_MAIN_IDLE );
 }
 

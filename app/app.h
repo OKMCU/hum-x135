@@ -37,4 +37,8 @@
 #include "app_event_mist.h"
 #endif
 
+#if APP_BUZZER_EN > 0
+#include "app_task_buzzer.h"
+#endif
+
 #endif

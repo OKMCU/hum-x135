@@ -55,6 +55,11 @@ extern void app_event_fhop_finish_freq_found( void )
     hal_cli_print_str( ". " );
     hal_cli_print_str( ".\r\n" );
 #endif
+
+#if (APP_FHOP_FOUND_BEEP_EN > 0) && (APP_BUZZER_EN > 0)
+    app_info.buzzer_beep = BUZZER_BEEP_LONG;
+    osal_event_set( TASK_ID_APP_BUZZER, TASK_EVT_APP_BUZZER_BEEP_UPDATE );
+#endif
 }
 
 extern void app_event_fhop_finish_freq_max( void )
@@ -65,6 +70,10 @@ extern void app_event_fhop_finish_freq_max( void )
     hal_cli_print_str( ". " );
     hal_cli_print_str( ".\r\n" );
 #endif
+#if (APP_FHOP_FOUND_BEEP_EN > 0) && (APP_BUZZER_EN > 0)
+    app_info.buzzer_beep = BUZZER_BEEP_TRIPLE_SHORT;
+    osal_event_set( TASK_ID_APP_BUZZER, TASK_EVT_APP_BUZZER_BEEP_UPDATE );
+#endif
 }
 
 extern void app_event_fhop_finish_freq_min( void )
@@ -74,6 +83,10 @@ extern void app_event_fhop_finish_freq_min( void )
     hal_cli_print_sint( hal_mcu_hsi_trim_get() );
     hal_cli_print_str( ". " );
     hal_cli_print_str( ".\r\n" );
+#endif
+#if (APP_FHOP_FOUND_BEEP_EN > 0) && (APP_BUZZER_EN > 0)
+    app_info.buzzer_beep = BUZZER_BEEP_TRIPLE_SHORT;
+    osal_event_set( TASK_ID_APP_BUZZER, TASK_EVT_APP_BUZZER_BEEP_UPDATE );
 #endif
 }
 

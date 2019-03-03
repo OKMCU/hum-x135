@@ -102,18 +102,10 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
         {
             //BEEP BUZZER
             
-            //hal_led_set( HAL_LED_ALL, HAL_LED_MODE_ON );
-            //if( !(app_info.sys_flags & SYS_FLAGS_MIST_ON) )
-            //{
-            //    app_info.sys_flags |= SYS_FLAGS_MIST_ON;
-            //    hal_mist_on();
-            //
-            //    osal_event_set( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_RESET );
-            //    osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_RESET );
-            //    
-            //    if( (app_info.sys_flags & SYS_FLAGS_FREQ_FOUND) )
-            //        app_info.sys_flags |= SYS_FLAGS_WATERDET_ON;
-            //}
+            #if APP_BUZZER_EN > 0
+            app_info.buzzer_beep = BUZZER_BEEP_SHORT;
+            osal_event_set( TASK_ID_APP_BUZZER, TASK_EVT_APP_BUZZER_BEEP_UPDATE );
+            #endif
         }
         break;
 
@@ -130,46 +122,29 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
             else if ( app_info.mist_mode == MIST_MODE_2   )   LED_IND_MIST_MODE_2();
             else if ( app_info.mist_mode == MIST_MODE_3   )   LED_IND_MIST_MODE_3();
             else if ( app_info.mist_mode == MIST_MODE_4   )   LED_IND_MIST_MODE_4();
-
+            
             osal_event_set( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_SET_MODE );
 
-            #if 0
-            if( app_info.sys_flags & SYS_FLAGS_FREQ_FOUND )
+            if( app_info.mist_mode == MIST_MODE_1 )
             {
-                osal_event_set( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_SET_MODE );
-            }
-            else
-            {
-                if( app_info.mist_mode == MIST_MODE_OFF )
+                if( app_info.light_mode == LIGHT_MODE_OFF )
                 {
-                    osal_event_set( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_SET_MODE );
-                }
-                else
-                {
-                    hal_mist_on();
-                    app_info.sys_flags |= SYS_FLAGS_MIST_ON;
-                    #if APP_WATERDET_EN > 0
-                    osal_event_set( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_RESET );
-                    #endif
-                    #if APP_FHOP_EN > 0
-                    osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_RESET );
-                    #endif
+                    app_info.light_mode++;
+                    osal_event_set( TASK_ID_APP_LIGHT,  TASK_EVT_APP_LIGHT_SET_MODE );
                 }
             }
-            #endif
-            
         }
         break;
 
         case BUILD_UINT16( HAL_KEY_MIST, KEY_EVENT_LONG ):
         {
-            //if( app_info.sys_flags & SYS_FLAGS_MIST_ON )
-            //{
-            //    app_info.sys_flags &= ~SYS_FLAGS_MIST_ON;
-            //    hal_mist_off();
-            //}
             app_info.mist_mode = MIST_MODE_OFF;
             osal_event_set( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_SET_MODE );
+            LED_IND_MIST_MODE_OFF();
+            #if APP_BUZZER_EN > 0
+            app_info.buzzer_beep = BUZZER_BEEP_DOUBLE_SHORT;
+            osal_event_set( TASK_ID_APP_BUZZER, TASK_EVT_APP_BUZZER_BEEP_UPDATE );
+            #endif
         }
         break;
         
@@ -193,6 +168,11 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
                 app_info.light_mode = LIGHT_MODE_OFF;
             }
             osal_event_set( TASK_ID_APP_LIGHT,  TASK_EVT_APP_LIGHT_SET_MODE );
+
+            #if APP_BUZZER_EN > 0
+            app_info.buzzer_beep = BUZZER_BEEP_SHORT;
+            osal_event_set( TASK_ID_APP_BUZZER, TASK_EVT_APP_BUZZER_BEEP_UPDATE );
+            #endif
         }
         break;
 
@@ -205,6 +185,10 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
         {
             app_info.light_mode = LIGHT_MODE_OFF;
             osal_event_set( TASK_ID_APP_LIGHT,  TASK_EVT_APP_LIGHT_SET_MODE );
+            #if APP_BUZZER_EN > 0
+            app_info.buzzer_beep = BUZZER_BEEP_SHORT;
+            osal_event_set( TASK_ID_APP_BUZZER, TASK_EVT_APP_BUZZER_BEEP_UPDATE );
+            #endif
         }
         break;
         

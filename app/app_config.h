@@ -29,7 +29,9 @@
 #define APP_CLI_CMD_OFF_EN              0
 #define APP_KEY_EN                      1
 #define APP_FHOP_EN                     1
+#define APP_FHOP_FOUND_BEEP_EN          0
 #define APP_WATERDET_EN                 1
+#define APP_BUZZER_EN                   1
 #define APP_LIGHT_EN                    1
 #define APP_MIST_EN                     1
 
@@ -63,6 +65,15 @@
 #define MIST_MODE_2                 2
 #define MIST_MODE_3                 3
 #define MIST_MODE_4                 4
+#endif
+
+#if APP_BUZZER_EN > 0
+#define BUZZER_BEEP_OFF             0
+#define BUZZER_BEEP_SHORT           1   //bi
+#define BUZZER_BEEP_LONG            2   //bi~~~~~
+#define BUZZER_BEEP_DOUBLE_SHORT    3   //bi, bi
+#define BUZZER_BEEP_DOUBLE_SHORT_x2 4   //bi, bi......bi, bi
+#define BUZZER_BEEP_TRIPLE_SHORT    5   //bi, bi, bi
 #endif
 
 #define LED_IND_MIST_MODE_OFF()         hal_led_set( HAL_LED_ALL, HAL_LED_MODE_OFF )

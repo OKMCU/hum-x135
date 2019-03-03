@@ -77,6 +77,14 @@ extern void hal_driver_init( void )
     hal_light_init();
 #endif
 
+#if (HAL_BUZZER_EN > 0)
+    hal_buzzer_init();
+#endif
+
+#if (HAL_FAN_EN > 0)
+    hal_fan_init();
+#endif
+
 }
 
 /**************************************************************************************************

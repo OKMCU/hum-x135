@@ -57,8 +57,15 @@ extern void app_event_waterdet_no_water( void )
 
     app_info.light_mode = LIGHT_MODE_OFF;
     osal_event_set( TASK_ID_APP_LIGHT, TASK_EVT_APP_LIGHT_SET_MODE );
-    
+
+#if APP_FHOP_EN > 0
     osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_RESET );
+#endif
+
+    #if APP_BUZZER_EN > 0
+    app_info.buzzer_beep = BUZZER_BEEP_DOUBLE_SHORT_x2;
+    osal_event_set( TASK_ID_APP_BUZZER, TASK_EVT_APP_BUZZER_BEEP_UPDATE );
+    #endif
 }
 
 #endif

@@ -49,6 +49,12 @@ FLASH OSAL_TASK_t osal_task_list[OSAL_TASK_MAX] = {
     NULL,
 #endif
 
+#if APP_BUZZER_EN > 0
+    app_task_buzzer,
+#else
+    NULL,
+#endif
+
 #if APP_LIGHT_EN > 0
     app_task_light,
 #else

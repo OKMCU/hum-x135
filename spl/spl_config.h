@@ -46,7 +46,7 @@
 #define SPL_SYSCLK_CLKO_EN                  0
 #define SPL_TIMER_EN                        1
 #define SPL_TIMER_SYSTICK_EN                1
-#define SPL_TIMER0_EN                       0
+#define SPL_TIMER0_EN                       1
 #define SPL_TIMER1_EN                       1
 
 #if (SPL_UART_EN > 0)
@@ -104,7 +104,7 @@
 #define SPL_TIMER_SYSTICK_CALLBACK          osal_timer_systick_inc
 #endif //(SPL_TIMER_SYSTICK_EN > 0)
 #if (SPL_TIMER0_EN > 0)
-#define SPL_TIMER0_CALLBACK                 
+#define SPL_TIMER0_CALLBACK                 hal_buzzer_toggle
 #endif //(SPL_TIMER0_EN > 0)
 #if (SPL_TIMER1_EN > 0)
 #define SPL_TIMER1_CALLBACK                 hal_light_update

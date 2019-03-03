@@ -41,7 +41,9 @@ typedef struct {
 /**************************************************************************************************
  * MACROS
  **************************************************************************************************/
-                                           
+#define SECOND  1000uL
+#define MINUTE  (60uL*SECOND)
+#define HOUR    (60uL*MINUTE)
 /**************************************************************************************************
  * LOCAL FUNCTION DECLARATION
  **************************************************************************************************/
@@ -55,8 +57,8 @@ static MIST_PROFILE_t mist_profile[] = {
     { 0, 0, 0 },
     { 1, 0, 0 },
     { 10000, 10000, 0 },
-    { 1, 0, 10000 },
-    { 1, 0, 20000 }
+    { 1, 0, 1uL*HOUR },
+    { 1, 0, 3uL*HOUR }
 };
 
 extern void app_task_mist_init( void )
@@ -105,6 +107,9 @@ extern void app_task_mist ( uint8_t task_id, uint8_t event_id )
 static void app_task_mist_handle_set_mode( void )
 {
     hal_mist_off();
+    #if (HAL_FAN_EN > 0)
+    hal_fan_off();
+    #endif
     app_info.sys_flags &= ~SYS_FLAGS_MIST_ON;
     app_info.sys_flags &= ~SYS_FLAGS_WATERDET_ON;
     app_info.sys_flags &= ~SYS_FLAGS_FHOP_ON;
@@ -119,6 +124,7 @@ static void app_task_mist_handle_set_mode( void )
 
     #if APP_FHOP_EN > 0
     osal_timer_event_delete( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_START );
+    osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_RESET );
     #endif
     
     if( app_info.mist_mode < sizeof(mist_profile)/sizeof(MIST_PROFILE_t) )
@@ -127,6 +133,9 @@ static void app_task_mist_handle_set_mode( void )
         {
             hal_mist_on();
             app_info.sys_flags |= SYS_FLAGS_MIST_ON;
+            #if (HAL_FAN_EN > 0)
+            hal_fan_on();
+            #endif
             
             #if APP_WATERDET_EN > 0
             osal_timer_event_create( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_START, WATER_DETECTION_START_DELAY_MS );
@@ -150,6 +159,9 @@ static void app_task_mist_handle_on( void )
 {
     hal_mist_on();
     app_info.sys_flags |= SYS_FLAGS_MIST_ON;
+    #if (HAL_FAN_EN > 0)
+    hal_fan_on();
+    #endif
     
     #if APP_WATERDET_EN > 0
     osal_timer_event_create( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_START, WATER_DETECTION_START_DELAY_MS );
@@ -169,6 +181,9 @@ static void app_task_mist_handle_on( void )
 static void app_task_mist_handle_off( void )
 {
     hal_mist_off();
+    #if (HAL_FAN_EN > 0)
+    hal_fan_off();
+    #endif
     app_info.sys_flags &= ~SYS_FLAGS_MIST_ON;
     app_info.sys_flags &= ~SYS_FLAGS_WATERDET_ON;
     app_info.sys_flags &= ~SYS_FLAGS_FHOP_ON;
