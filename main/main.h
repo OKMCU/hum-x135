@@ -30,11 +30,12 @@
 #define TASK_EVT_APP_CLI_RX_CHAR            1
 #define TASK_EVT_APP_CLI_RX_OVF             2
 
-#define TASK_EVT_APP_FHOP_RESET             1
-#define TASK_EVT_APP_FHOP_UPDATE            2
+#define TASK_EVT_APP_FHOP_RESET             0 
+#define TASK_EVT_APP_FHOP_UPDATE            1
+#define TASK_EVT_APP_FHOP_START             2
 
-#define TASK_EVT_APP_WATERDET_RESET         1
-#define TASK_EVT_APP_WATERDET_UPDATE        2
+#define TASK_EVT_APP_WATERDET_UPDATE        0
+#define TASK_EVT_APP_WATERDET_START         1
 
 #define TASK_EVT_APP_KEY_UPDATE             0
 

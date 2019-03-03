@@ -44,28 +44,37 @@
  * GLOBAL VARIABLES
  **************************************************************************************************/
 
-extern void app_event_fhop_rough_tune_finish( void )
-{   
+extern void app_event_fhop_finish_freq_found( void )
+{
+    volatile int8_t trim;
+
+    trim = hal_mcu_hsi_trim_get();
 #if APP_CLI_EN > 0
-    hal_cli_print_str( "Rough Tune to " );
-    hal_cli_print_sint( hal_mcu_hsi_trim_get() );
+    hal_cli_print_str( "Freq found " );
+    hal_cli_print_sint( trim );
     hal_cli_print_str( ". " );
     hal_cli_print_str( ".\r\n" );
 #endif
-    app_info.sys_flags |= SYS_FLAGS_WATERDET_ON;
-    osal_event_set( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_RESET );
 }
 
-extern void app_event_fhop_fine_tune_finish( void )
-{   
+extern void app_event_fhop_finish_freq_max( void )
+{
 #if APP_CLI_EN > 0
-    hal_cli_print_str( "Fine Tune to " );
+    hal_cli_print_str( "Freq max " );
     hal_cli_print_sint( hal_mcu_hsi_trim_get() );
     hal_cli_print_str( ". " );
     hal_cli_print_str( ".\r\n" );
 #endif
-    app_info.sys_flags |= SYS_FLAGS_FREQ_FOUND;
-    osal_event_set(TASK_ID_APP_MIST, TASK_EVT_APP_MIST_SET_MODE );
+}
+
+extern void app_event_fhop_finish_freq_min( void )
+{
+#if APP_CLI_EN > 0
+    hal_cli_print_str( "Freq min " );
+    hal_cli_print_sint( hal_mcu_hsi_trim_get() );
+    hal_cli_print_str( ". " );
+    hal_cli_print_str( ".\r\n" );
+#endif
 }
 
 #endif

@@ -126,21 +126,22 @@ extern void app_event_main_idle( void )
 
     if( app_info.sys_flags & SYS_FLAGS_MIST_ON )
     {
-        if( !(app_info.sys_flags & SYS_FLAGS_FREQ_FOUND) )
+        #if APP_FHOP_EN > 0
+        if( !(app_info.sys_flags & SYS_FLAGS_FREQ_FINISH) &&
+             (app_info.sys_flags & SYS_FLAGS_FHOP_ON) )
         {
-            #if APP_FHOP_EN > 0
             app_info.freq_index = hal_freqdet_read();
             osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_UPDATE );
-            #endif
         }
+        #endif
 
+        #if APP_WATERDET_EN > 0
         if( app_info.sys_flags & SYS_FLAGS_WATERDET_ON )
         {
-            #if APP_WATERDET_EN > 0
             app_info.water_index = hal_waterdet_read();
             osal_event_set( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_UPDATE );
-            #endif
         }
+        #endif
     }
 
     osal_event_set( TASK_ID_APP_MAIN, TASK_EVT_APP_MAIN_IDLE );

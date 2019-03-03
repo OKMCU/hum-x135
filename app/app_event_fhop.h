@@ -41,8 +41,9 @@ extern "C"
 /**************************************************************************************************
  * FUNCTIONS - API
  **************************************************************************************************/
-extern void app_event_fhop_rough_tune_finish( void );
-extern void app_event_fhop_fine_tune_finish( void );
+extern void app_event_fhop_finish_freq_found( void );
+extern void app_event_fhop_finish_freq_max( void );
+extern void app_event_fhop_finish_freq_min( void );
 
 #ifdef __cplusplus
 }

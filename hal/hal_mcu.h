@@ -24,8 +24,8 @@
  * ------------------------------------------------------------------------------------------------
  */
 #if HAL_MCU_HSI_TRIM_EN > 0
-#define HAL_MCU_TRIM_MIN       -50
-#define HAL_MCU_TRIM_MAX       50
+#define HAL_MCU_TRIM_MIN       -20      //about 3000kHz - 20*40kHz/6 = 2870kHz
+#define HAL_MCU_TRIM_MAX       20       //about 3000kHz + 20*40kHz/6 = 3130kHz
 #endif //HAL_MCU_TRIM_EN > 0
 
 /* ------------------------------------------------------------------------------------------------

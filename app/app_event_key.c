@@ -131,6 +131,9 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
             else if ( app_info.mist_mode == MIST_MODE_3   )   LED_IND_MIST_MODE_3();
             else if ( app_info.mist_mode == MIST_MODE_4   )   LED_IND_MIST_MODE_4();
 
+            osal_event_set( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_SET_MODE );
+
+            #if 0
             if( app_info.sys_flags & SYS_FLAGS_FREQ_FOUND )
             {
                 osal_event_set( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_SET_MODE );
@@ -145,11 +148,15 @@ extern void app_event_key_update( uint8_t keyValue, uint8_t keyEvent )
                 {
                     hal_mist_on();
                     app_info.sys_flags |= SYS_FLAGS_MIST_ON;
+                    #if APP_WATERDET_EN > 0
+                    osal_event_set( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_RESET );
+                    #endif
                     #if APP_FHOP_EN > 0
                     osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_RESET );
                     #endif
                 }
             }
+            #endif
             
         }
         break;

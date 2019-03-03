@@ -44,8 +44,9 @@ typedef struct app_info_t {
  * ------------------------------------------------------------------------------------------------
  */
 #define SYS_FLAGS_MIST_ON           (1<<0)
-#define SYS_FLAGS_FREQ_FOUND        (1<<1)
-#define SYS_FLAGS_WATERDET_ON       (1<<2)
+#define SYS_FLAGS_FREQ_FINISH       (1<<1)
+#define SYS_FLAGS_FHOP_ON           (1<<2)
+#define SYS_FLAGS_WATERDET_ON       (1<<3)
 
 
 /* ------------------------------------------------------------------------------------------------

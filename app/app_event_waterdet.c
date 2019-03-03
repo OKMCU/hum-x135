@@ -57,6 +57,8 @@ extern void app_event_waterdet_no_water( void )
 
     app_info.light_mode = LIGHT_MODE_OFF;
     osal_event_set( TASK_ID_APP_LIGHT, TASK_EVT_APP_LIGHT_SET_MODE );
+    
+    osal_event_set( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_RESET );
 }
 
 #endif

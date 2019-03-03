@@ -106,10 +106,20 @@ static void app_task_mist_handle_set_mode( void )
 {
     hal_mist_off();
     app_info.sys_flags &= ~SYS_FLAGS_MIST_ON;
+    app_info.sys_flags &= ~SYS_FLAGS_WATERDET_ON;
+    app_info.sys_flags &= ~SYS_FLAGS_FHOP_ON;
     
     osal_timer_event_delete( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_STOP );
     osal_timer_event_delete( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_ON );
     osal_timer_event_delete( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_OFF );
+
+    #if APP_WATERDET_EN > 0
+    osal_timer_event_delete( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_START );
+    #endif
+
+    #if APP_FHOP_EN > 0
+    osal_timer_event_delete( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_START );
+    #endif
     
     if( app_info.mist_mode < sizeof(mist_profile)/sizeof(MIST_PROFILE_t) )
     {
@@ -117,7 +127,16 @@ static void app_task_mist_handle_set_mode( void )
         {
             hal_mist_on();
             app_info.sys_flags |= SYS_FLAGS_MIST_ON;
-            osal_event_set( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_RESET );
+            
+            #if APP_WATERDET_EN > 0
+            osal_timer_event_create( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_START, WATER_DETECTION_START_DELAY_MS );
+            #endif
+
+            #if APP_FHOP_EN > 0
+            //if frequency is still not finished yet, then turn on frequency hopping
+            if( !(app_info.sys_flags & SYS_FLAGS_FREQ_FINISH) )
+                osal_timer_event_create( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_START, FHOP_START_DELAY_MS );
+            #endif
             
             if( mist_profile[app_info.mist_mode].total_time )
                 osal_timer_event_create( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_STOP, mist_profile[app_info.mist_mode].total_time );
@@ -131,7 +150,16 @@ static void app_task_mist_handle_on( void )
 {
     hal_mist_on();
     app_info.sys_flags |= SYS_FLAGS_MIST_ON;
-    osal_event_set( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_RESET );
+    
+    #if APP_WATERDET_EN > 0
+    osal_timer_event_create( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_START, WATER_DETECTION_START_DELAY_MS );
+    #endif
+
+    #if APP_FHOP_EN > 0
+    //if frequency is still not finished yet, then turn on frequency hopping
+    if( !(app_info.sys_flags & SYS_FLAGS_FREQ_FINISH) )
+        osal_timer_event_create( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_START, FHOP_START_DELAY_MS );
+    #endif
     
     APP_ASSERT( mist_profile[app_info.mist_mode].on_time != 0 );
     osal_timer_event_create( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_OFF, mist_profile[app_info.mist_mode].on_time );
@@ -142,6 +170,16 @@ static void app_task_mist_handle_off( void )
 {
     hal_mist_off();
     app_info.sys_flags &= ~SYS_FLAGS_MIST_ON;
+    app_info.sys_flags &= ~SYS_FLAGS_WATERDET_ON;
+    app_info.sys_flags &= ~SYS_FLAGS_FHOP_ON;
+
+    #if APP_WATERDET_EN > 0
+    osal_timer_event_delete( TASK_ID_APP_WATERDET, TASK_EVT_APP_WATERDET_START );
+    #endif
+
+    #if APP_FHOP_EN > 0
+    osal_timer_event_delete( TASK_ID_APP_FHOP, TASK_EVT_APP_FHOP_START );
+    #endif
     
     APP_ASSERT( mist_profile[app_info.mist_mode].off_time != 0 );
     osal_timer_event_create( TASK_ID_APP_MIST, TASK_EVT_APP_MIST_ON, mist_profile[app_info.mist_mode].off_time );

@@ -28,22 +28,24 @@
 #define APP_CLI_CMD_ON_EN               0
 #define APP_CLI_CMD_OFF_EN              0
 #define APP_KEY_EN                      1
-#define APP_FHOP_EN                     0
-#define APP_WATERDET_EN                 0
+#define APP_FHOP_EN                     1
+#define APP_WATERDET_EN                 1
 #define APP_LIGHT_EN                    1
 #define APP_MIST_EN                     1
 
 #if APP_FHOP_EN > 0
 #define FREQ_INDEX_IIR(old_idx, new_idx)     (uint16_t)(((uint32_t)old_idx*31+(uint32_t)new_idx)>>5)
-#define FREQ_INDEX_IIR_CNT                   32
+#define FREQ_INDEX_IIR_CNT                   64
 #define FREQ_INDEX_TARGET                    36000
 #define FHOP_FINE_TUNE_CNT                   5
+#define FHOP_START_DELAY_MS                  1000
 #endif
 
 #if APP_WATERDET_EN > 0
 #define WATER_INDEX_IIR(old_idx, new_idx)    (uint16_t)(((uint32_t)old_idx*3+(uint32_t)new_idx)>>2)
 #define WATER_INDEX_IIR_CNT                  5
-#define WATER_INDEX_NO_WATER_THRESHOLD       2000
+#define WATER_INDEX_NO_WATER_THRESHOLD       350
+#define WATER_DETECTION_START_DELAY_MS       100
 #endif
 
 #if APP_LIGHT_EN > 0
